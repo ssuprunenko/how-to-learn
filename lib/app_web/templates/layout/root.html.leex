@@ -4,13 +4,16 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "App", suffix: " · Phoenix Framework" %>
+    <%= live_title_tag assigns[:page_title] || "App", suffix: " – How To Learn #{Map.get(assigns[:section] || %{}, :name)}" %>
+
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header>
+    <!-- header>
       <section class="container">
         <nav role="navigation">
           <ul>
@@ -20,11 +23,9 @@
             <% end %>
           </ul>
         </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
       </section>
-    </header>
+    </header -->
+
     <%= @inner_content %>
   </body>
 </html>

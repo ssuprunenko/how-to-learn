@@ -1,13 +1,13 @@
-const path = require('path');
-const glob = require('glob');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path')
+const glob = require('glob')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = (env, options) => {
-  const devMode = options.mode !== 'production';
+  const devMode = options.mode !== 'production'
 
   return {
     optimization: {
@@ -40,14 +40,17 @@ module.exports = (env, options) => {
             MiniCssExtractPlugin.loader,
             'css-loader',
             'sass-loader',
+            'postcss-loader'
           ],
         }
       ]
     },
     plugins: [
       new MiniCssExtractPlugin({ filename: '../css/app.css' }),
-      new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+      new CopyPlugin({
+        patterns: [{ from: 'static/', to: '../' }]
+      })
     ]
     .concat(devMode ? [new HardSourceWebpackPlugin()] : [])
   }
-};
+}
