@@ -19,6 +19,10 @@ defmodule AppWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+
+    resources "/", SectionController, name: "section", only: [:show] do
+      resources "/categories", CategoryController
+    end
   end
 
   # Other scopes may use custom stacks.
