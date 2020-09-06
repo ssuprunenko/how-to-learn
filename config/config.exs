@@ -27,6 +27,13 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :kaffy,
+  otp_app: :app,
+  ecto_repo: App.Repo,
+  router: AppWeb.Router,
+  admin_title: "How To Learn — Admin",
+  resources: &App.Admin.Config.create_resources/1
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

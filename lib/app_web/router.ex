@@ -1,5 +1,6 @@
 defmodule AppWeb.Router do
   use AppWeb, :router
+  use Kaffy.Routes, scope: "/admin"
 
   pipeline :browser do
     plug :accepts, ["html"]
