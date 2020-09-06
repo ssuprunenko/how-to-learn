@@ -1,5 +1,6 @@
 defmodule AppWeb.Router do
   use AppWeb, :router
+  use Kaffy.Routes, scope: "/admin"
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -18,6 +19,10 @@ defmodule AppWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+
+    resources "/", SectionController, name: "section", only: [:show] do
+      resources "/categories", CategoryController
+    end
   end
 
   # Other scopes may use custom stacks.
