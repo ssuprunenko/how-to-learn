@@ -38,7 +38,6 @@ defmodule App.MixProject do
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_live_view, "~> 0.13.0"},
-      {:floki, ">= 0.0.0", only: :test},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.2"},
@@ -47,7 +46,9 @@ defmodule App.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:kaffy, "~> 0.9.0"}
+      {:kaffy, "~> 0.9.0"},
+      {:floki, ">= 0.0.0", only: :test},
+      {:ex_machina, "~> 2.4", only: :test}
     ]
   end
 

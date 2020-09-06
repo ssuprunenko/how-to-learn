@@ -1,8 +1,11 @@
 defmodule AppWeb.SectionControllerTest do
   use AppWeb.ConnCase
+  import App.Factory
 
   describe "show" do
     test "valid section", %{conn: conn} do
+      insert(:section, %{name: "English", slug: "english"})
+
       response =
         conn
         |> get(Routes.section_path(conn, :show, "english"))
@@ -14,8 +17,8 @@ defmodule AppWeb.SectionControllerTest do
     test "invalid section", %{conn: conn} do
       conn = get(conn, Routes.section_path(conn, :show, "test"))
 
-      assert %{id: "english" = id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.section_path(conn, :show, id)
+      assert %{slug: "english" = slug} = redirected_params(conn)
+      assert redirected_to(conn) == Routes.section_path(conn, :show, slug)
     end
   end
 end
