@@ -17,5 +17,6 @@ defmodule App.Content.Category do
     category
     |> cast(attrs, [:name, :slug, :is_published])
     |> validate_required([:name, :slug, :is_published])
+    |> unique_constraint(:slug)
   end
 end

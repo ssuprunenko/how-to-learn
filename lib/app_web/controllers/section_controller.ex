@@ -1,9 +1,9 @@
 defmodule AppWeb.SectionController do
   use AppWeb, :controller
-  alias App.Section
+  alias App.Content
 
-  def show(conn, %{"id" => id} = _params) do
-    case Section.find(id) do
+  def show(conn, %{"slug" => slug} = _params) do
+    case Content.get_section_by_slug(slug) do
       nil ->
         conn
         |> redirect(to: "/english")
