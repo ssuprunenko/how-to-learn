@@ -20,8 +20,8 @@ defmodule AppWeb.Router do
 
     live "/", PageLive, :index
 
-    resources "/", SectionController, name: "section", only: [:show] do
-      resources "/categories", CategoryController
+    resources "/", SectionController, name: "section", param: "slug", only: [:show] do
+      resources "/categories", CategoryController, param: "slug", only: [:show]
     end
   end
 
