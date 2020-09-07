@@ -15,4 +15,16 @@ defmodule App.Factory do
       is_published: true
     }
   end
+
+  def item_factory do
+    %App.Content.Item{
+      name: "Duolingo",
+      slug: "duolingo",
+      url: "https://www.duolingo.com",
+      license: :freemium,
+      has_trial: true,
+      likes: 100,
+      section: build(:section)
+    }
+  end
 end

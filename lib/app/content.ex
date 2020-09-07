@@ -5,7 +5,7 @@ defmodule App.Content do
 
   import Ecto.Query, warn: false
   alias App.Repo
-  alias App.Content.{Category, Section}
+  alias App.Content.{Category, Section, Item}
 
   @doc """
   Returns the list of categories.
@@ -66,4 +66,33 @@ defmodule App.Content do
   def get_section(id), do: Repo.get(Section, id)
 
   def get_section_by_slug(slug), do: Repo.get_by(Section, slug: slug)
+
+  @doc """
+  Returns the list of items.
+
+  ## Examples
+
+      iex> list_items()
+      [%Item{}, ...]
+
+  """
+  def list_items do
+    Repo.all(Item)
+  end
+
+  @doc """
+  Gets a single item.
+
+  Returns nil if the Item does not exist.
+
+  ## Examples
+
+      iex> get_item(123)
+      %Item{}
+
+      iex> get_item(456)
+      nil
+
+  """
+  def get_item(id), do: Repo.get(Item, id)
 end
