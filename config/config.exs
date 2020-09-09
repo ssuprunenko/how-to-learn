@@ -31,7 +31,7 @@ config :kaffy,
   otp_app: :app,
   ecto_repo: App.Repo,
   router: AppWeb.Router,
-  admin_title: "How To Learn — Admin",
+  admin_title: "HTL – Admin Panel",
   resources: &App.Admin.Config.create_resources/1
 
 # Import environment specific config. This must remain at the bottom

@@ -1,1 +1,48 @@
-<%= @section.name %>
+<div class="max-w-full mt-10 text-center">
+  <h1 class="text-3xl"><%= @section.name %></h1>
+  <p><%= @section.summary %></p>
+
+  <div class="mt-16">
+    <h2 class="text-2xl">Popular this month</h2>
+    <div class="grid max-w-5xl grid-cols-1 gap-6 m-auto sm:grid-cols-2 lg:grid-cols-3">
+      <%= for item <- @section.top_items do %>
+        <div class="p-4 text-left">
+          <h3 class="mb-2 text-lg font-semibold text-center"><%= item.name %></h3>
+          <p><%= raw(item.summary) %></p>
+          <p class="mt-1 text-sm"><%= "#{item.likes} likes" %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-16">
+    <h2 class="text-2xl">What's new</h2>
+    <div class="grid max-w-5xl grid-cols-1 gap-6 m-auto sm:grid-cols-2 lg:grid-cols-3">
+      <%= for item <- @section.latest_items do %>
+        <div class="p-4 text-left">
+          <h3 class="mb-2 text-lg font-semibold text-center"><%= item.name %></h3>
+          <%= truncated_info(item) %>
+          <p class="mt-1 text-sm"><%= "#{item.likes} likes" %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-16 mb-10">
+    <h2 class="text-2xl">More in English</h2>
+    <div class="grid max-w-5xl grid-cols-1 gap-6 m-auto sm:grid-cols-2 lg:grid-cols-3">
+      <%= for category <- @categories do %>
+        <div class="p-4">
+          <h3 class="text-lg font-semibold"><%= category.name %></h3>
+          <p class="mb-4"><%= category.items_count %> items</p>
+          <i>Popular in this category</i>
+          <ul>
+            <%= for item <- category.items do %>
+              <li><%= item.name %> (<%= item.likes %> likes)</li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
