@@ -18,7 +18,8 @@ defmodule AppWeb.Router do
   scope "/", AppWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    # live "/", PageLive, :index
+    get "/", SectionController, :redirector
 
     resources "/", SectionController, name: "section", param: "slug", only: [:show] do
       resources "/categories", CategoryController, param: "slug", only: [:show]

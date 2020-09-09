@@ -5,7 +5,10 @@ defmodule App.Admin.Config do
         resources: [
           section: [schema: App.Content.Section],
           category: [schema: App.Content.Category, admin: App.Admin.CategoryAdmin],
-          item: [schema: App.Content.Item, admin: App.Admin.ItemAdmin]
+          item: [schema: App.Content.Item, admin: App.Admin.ItemAdmin],
+          category_item: [
+            schema: App.Content.CategoryItem, admin: App.Admin.CategoryItemAdmin
+          ]
         ]
       ]
     ]

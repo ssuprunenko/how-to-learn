@@ -4,8 +4,8 @@ defmodule App.Content do
   """
 
   import Ecto.Query, warn: false
-  alias App.Repo
   alias App.Content.{Category, Section, Item}
+  alias App.Repo
 
   @doc """
   Returns the list of categories.
