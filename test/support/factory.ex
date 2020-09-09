@@ -3,28 +3,36 @@ defmodule App.Factory do
 
   def section_factory do
     %App.Content.Section{
-      name: "English",
-      slug: "english"
+      name: Faker.StarWars.planet(),
+      slug: Faker.Internet.slug(),
+      summary: Faker.StarWars.quote()
     }
   end
 
   def category_factory do
     %App.Content.Category{
-      name: "Apps",
-      slug: "apps",
+      name: Faker.StarWars.planet(),
+      slug: Faker.Internet.slug(),
       is_published: true
     }
   end
 
   def item_factory do
     %App.Content.Item{
-      name: "Duolingo",
-      slug: "duolingo",
-      url: "https://www.duolingo.com",
+      name: Faker.Superhero.name(),
+      slug: Faker.Internet.slug(),
+      url: Faker.Internet.url(),
       license: :freemium,
       has_trial: true,
-      likes: 100,
+      likes: Enum.random(1..1_000),
       section: build(:section)
+    }
+  end
+
+  def category_item_factory do
+    %App.Content.CategoryItem{
+      category: build(:category),
+      item: build(:item)
     }
   end
 end
