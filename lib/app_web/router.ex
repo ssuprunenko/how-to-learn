@@ -15,22 +15,6 @@ defmodule AppWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", AppWeb do
-    pipe_through :browser
-
-    # live "/", PageLive, :index
-    get "/", SectionController, :redirector
-
-    resources "/", SectionController, name: "section", param: "slug", only: [:show] do
-      resources "/categories", CategoryController, param: "slug", only: [:show]
-    end
-  end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", AppWeb do
-  #   pipe_through :api
-  # end
-
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -46,4 +30,20 @@ defmodule AppWeb.Router do
       live_dashboard "/dashboard", metrics: AppWeb.Telemetry
     end
   end
+
+  scope "/", AppWeb do
+    pipe_through :browser
+
+    # live "/", PageLive, :index
+    get "/", SectionController, :redirector
+
+    resources "/", SectionController, name: "section", param: "slug", only: [:show] do
+      resources "/categories", CategoryController, param: "slug", only: [:show]
+    end
+  end
+
+  # Other scopes may use custom stacks.
+  # scope "/api", AppWeb do
+  #   pipe_through :api
+  # end
 end
