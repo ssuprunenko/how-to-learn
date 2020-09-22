@@ -34,6 +34,10 @@ config :kaffy,
   admin_title: "HTL – Admin Panel",
   resources: &App.Admin.Config.create_resources/1
 
+config :app, :basic_auth,
+  username: System.get_env("ADMIN_USERNAME"),
+  password: System.get_env("ADMIN_PASSWORD")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

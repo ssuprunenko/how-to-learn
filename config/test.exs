@@ -20,3 +20,6 @@ config :app, AppWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+System.put_env("ADMIN_USERNAME", "admin")
+System.put_env("ADMIN_PASSWORD", "password")

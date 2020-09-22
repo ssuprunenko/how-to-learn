@@ -1,6 +1,6 @@
 defmodule AppWeb.Router do
   use AppWeb, :router
-  use Kaffy.Routes, scope: "/admin"
+  use Kaffy.Routes, scope: "/admin", pipe_through: [:admin_basic_auth]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -15,6 +15,10 @@ defmodule AppWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :admins_only do
+    plug :admin_basic_auth
+  end
+
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -26,7 +30,7 @@ defmodule AppWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
+      pipe_through [:browser, :admins_only]
       live_dashboard "/dashboard", metrics: AppWeb.Telemetry
     end
   end
@@ -46,4 +50,10 @@ defmodule AppWeb.Router do
   # scope "/api", AppWeb do
   #   pipe_through :api
   # end
+
+  defp admin_basic_auth(conn, _opts) do
+    username = System.fetch_env!("ADMIN_USERNAME")
+    password = System.fetch_env!("ADMIN_PASSWORD")
+    Plug.BasicAuth.basic_auth(conn, username: username, password: password)
+  end
 end
