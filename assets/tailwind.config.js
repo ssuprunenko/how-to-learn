@@ -21,5 +21,10 @@ module.exports = {
   future: {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true
-  }
+  },
+  purge: [
+    '../lib/app_web/templates/**/*.html.eex',
+    '../lib/app_web/templates/**/*.html.leex',
+    '../lib/app_web/views/**/*.ex'
+  ]
 }
