@@ -52,8 +52,6 @@ defmodule AppWeb.Router do
   # end
 
   defp admin_basic_auth(conn, _opts) do
-    username = System.fetch_env!("ADMIN_USERNAME")
-    password = System.fetch_env!("ADMIN_PASSWORD")
-    Plug.BasicAuth.basic_auth(conn, username: username, password: password)
+    Plug.BasicAuth.basic_auth(conn, Application.get_env(:app, :basic_auth))
   end
 end

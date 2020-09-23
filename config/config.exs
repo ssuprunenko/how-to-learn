@@ -35,8 +35,8 @@ config :kaffy,
   resources: &App.Admin.Config.create_resources/1
 
 config :app, :basic_auth,
-  username: System.get_env("ADMIN_USERNAME"),
-  password: System.get_env("ADMIN_PASSWORD")
+  username: System.get_env("ADMIN_USERNAME", "admin"),
+  password: System.get_env("ADMIN_PASSWORD", "password")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
