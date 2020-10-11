@@ -20,7 +20,7 @@ defmodule App.MixProject do
   def application do
     [
       mod: {App.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 
@@ -39,9 +39,9 @@ defmodule App.MixProject do
       {:ecto_enum, "~> 1.4"},
       {:postgrex, ">= 0.0.0"},
       {:timex, "~> 3.6"},
-      {:phoenix_live_view, "~> 0.13.0"},
+      {:phoenix_live_view, "~> 0.14.7"},
       {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_dashboard, "~> 0.2"},
+      {:phoenix_live_dashboard, "~> 0.2.9"},
       {:curtail, "~> 2.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
@@ -50,9 +50,10 @@ defmodule App.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:kaffy, git: "https://github.com/aesmail/kaffy"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:floki, ">= 0.0.0", only: :test},
+      {:floki, ">= 0.27.0", only: :test},
       {:ex_machina, "~> 2.4", only: :test},
-      {:faker, "~> 0.14", only: :test}
+      {:faker, "~> 0.14", only: :test},
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 
