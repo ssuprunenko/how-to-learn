@@ -17,7 +17,7 @@ defmodule AppWeb.SectionControllerTest do
     test "invalid section", %{conn: conn} do
       conn = get(conn, Routes.section_path(conn, :show, "test"))
 
-      assert %{slug: "english" = slug} = redirected_params(conn)
+      assert %{section_slug: "english" = slug} = redirected_params(conn)
       assert redirected_to(conn) == Routes.section_path(conn, :show, slug)
     end
   end
