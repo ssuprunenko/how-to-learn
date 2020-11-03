@@ -25,6 +25,7 @@ defmodule App.Factory do
       license: :freemium,
       has_trial: true,
       likes: Enum.random(1..1_000),
+      is_approved: true,
       section: build(:section)
     }
   end

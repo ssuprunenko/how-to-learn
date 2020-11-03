@@ -39,6 +39,7 @@ defmodule App.Content.Section do
 
     items =
       id
+      |> Item.approved_by_section_query()
       |> Item.top_by_likes_query(limit)
       |> Item.created_since_date(start_date)
 
