@@ -19,6 +19,10 @@ defmodule AppWeb.Router do
     plug :admin_basic_auth
   end
 
+  pipeline :section do
+    plug AppWeb.Plugs.SetSection
+  end
+
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -36,13 +40,15 @@ defmodule AppWeb.Router do
   end
 
   scope "/", AppWeb do
-    pipe_through :browser
+    pipe_through [:browser, :section]
 
     # live "/", PageLive, :index
-    get "/", SectionController, :redirector
+    get "/", SectionController, :show
 
-    resources "/", SectionController, name: "section", param: "slug", only: [:show] do
-      resources "/categories", CategoryController, param: "slug", only: [:show]
+    resources "/s", SectionController, param: "section_slug", only: [:show]
+
+    scope "/s/:section_slug", as: :section do
+      resources "/c", CategoryController, param: "slug", only: [:show]
     end
   end
 

@@ -36,6 +36,10 @@ defmodule App.Content do
   """
   def get_category(id), do: Repo.get(Category, id)
 
+  def get_category_by_slug(slug) do
+    Repo.get_by(Category, slug: slug, is_published: true)
+  end
+
   @doc """
   Returns the list of sections.
 

@@ -41,7 +41,7 @@ defmodule App.MixProject do
       {:timex, "~> 3.6"},
       {:phoenix_live_view, "~> 0.14.7"},
       {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_dashboard, "~> 0.2.9"},
+      {:phoenix_live_dashboard, "~> 0.3"},
       {:curtail, "~> 2.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
@@ -53,6 +53,7 @@ defmodule App.MixProject do
       {:floki, ">= 0.27.0", only: :test},
       {:ex_machina, "~> 2.4", only: :test},
       {:faker, "~> 0.14", only: :test},
+      {:assert_html, "~> 0.1.2", only: :test},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end

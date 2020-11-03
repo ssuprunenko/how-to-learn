@@ -63,9 +63,8 @@ defmodule App.Content.Item do
     )
   end
 
-  def top_by_likes_query(section_id, limit) do
-    query = approved_by_section_query(section_id)
-    from(i in subquery(query), order_by: [desc: i.likes], limit: ^limit)
+  def top_by_likes_query(query, limit) do
+    from(i in query, order_by: [desc: i.likes], limit: ^limit)
   end
 
   def latest(query, limit) do
@@ -97,21 +96,20 @@ defmodule App.Content.Item do
     |> Repo.all()
   end
 
-  def with_category_query(section_id) do
-    query = approved_by_section_query(section_id)
-
-    from(i in subquery(query),
+  def with_category_query(query) do
+    from(i in query,
       inner_join: ci in CategoryItem,
       on: ci.item_id == i.id,
       inner_join: c in assoc(ci, :category),
       where: c.is_published,
-      select: %{
-        name: i.name,
-        slug: i.slug,
-        likes: i.likes,
+      select_merge: %{
         category: %{name: c.name, slug: c.slug}
       },
       order_by: [desc: i.likes]
     )
   end
+
+  # def with_fields_for(query, :home) do
+  #   from(i in query, select: %{name: i.name, slug: i.slug, likes: i.likes})
+  # end
 end
