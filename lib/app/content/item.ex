@@ -109,6 +109,13 @@ defmodule App.Content.Item do
     )
   end
 
+  def count(query) do
+    from(i in query,
+      select: count(i.id)
+    )
+    |> Repo.one()
+  end
+
   # def with_fields_for(query, :home) do
   #   from(i in query, select: %{name: i.name, slug: i.slug, likes: i.likes})
   # end

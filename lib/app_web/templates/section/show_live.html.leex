@@ -1,0 +1,65 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col w-full max-w-5xl mx-auto">
+    <div class="flex-grow xl:px-8 lg:flex">
+      <div class="px-4 lg:pl-0 flex-1 min-w-0 py-6">
+        <h1>
+          <%= "Best #{if is_nil(@category), do: "Resources", else: @category.name} to learn #{@section.name}" %>
+        </h1>
+        <p><%= @section.summary %></p>
+
+        <div class="mt-8 space-y-6">
+          <%= for item <- @items do %>
+            <div>
+              <h3 class="font-semibold"><%= item.name %></h3>
+              <p><%= raw(item.summary) %></p>
+              <p class="mt-2 text-sm leading-5">
+                <span class="px-2 py-1 font-medium text-green-800 bg-green-100 rounded"><%= item.license |> to_string() |> String.capitalize() %></span>
+                <%= if item.has_trial do %>
+                  (Free Trial)
+                <% end %>
+              </p>
+              <p class="mt-2 text-gray-600 text-sm">
+                Added <%= Timex.format!(item.inserted_at, "%F", :strftime) %>
+              </p>
+              <p class="mt-2 italic"><%= "#{item.likes} likes" %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="px-4 lg:flex-shrink-0 lg:border-l lg:border-gray-200 xl:pr-0 space-y-8 py-6">
+        <div>
+          <h2 class="text-xl">Categories</h2>
+          <ul>
+            <li>
+              <%= live_patch "All (#{@section.items_count})", to: Routes.live_path(@socket, AppWeb.SectionLive, @section.slug), class: "underline #{if is_nil(@category), do: 'font-semibold'}" %>
+            </li>
+            <%= for category <- @categories do %>
+              <li>
+                <%= live_patch "#{category.name} (#{category.items_count})", to: Routes.live_path(@socket, AppWeb.SectionLive, @section.slug, category.slug), class: "underline #{if not is_nil(@category) and @category.slug == category.slug, do: 'font-semibold'}" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-xl">Top Items</h2>
+          <ul>
+            <%= for item <- @section.top_items do %>
+              <li><%= "#{item.name} (#{item.likes} likes)" %></li>
+            <% end %>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-xl">Latest Items</h2>
+          <ul>
+            <%= for item <- @section.latest_items do %>
+              <li><%= item.name %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

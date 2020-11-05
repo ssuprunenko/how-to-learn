@@ -43,13 +43,10 @@ defmodule AppWeb.Router do
     pipe_through [:browser, :section]
 
     # live "/", PageLive, :index
-    get "/", SectionController, :show
+    get "/home/:section_slug", SectionController, :show
 
-    resources "/s", SectionController, param: "section_slug", only: [:show]
-
-    scope "/s/:section_slug", as: :section do
-      resources "/c", CategoryController, param: "slug", only: [:show]
-    end
+    live "/s/:section_slug/c/:category_slug", SectionLive
+    live "/s/:section_slug", SectionLive
   end
 
   # Other scopes may use custom stacks.
