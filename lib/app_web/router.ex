@@ -47,6 +47,7 @@ defmodule AppWeb.Router do
 
     live "/s/:section_slug/c/:category_slug", SectionLive
     live "/s/:section_slug", SectionLive
+    live "/", SectionLive
   end
 
   # Other scopes may use custom stacks.
