@@ -5,19 +5,27 @@ defmodule AppWeb.SectionLive do
   alias App.Content.{Category, Item, Section}
   alias AppWeb.SectionView
 
-  def mount(_params, _session, socket) do
-    {:ok, socket, temporary_assigns: [items: [], categories: []]}
-  end
-
-  def render(assigns), do: SectionView.render("show_live.html", assigns)
-
-  def handle_params(params, _url, socket) do
+  def mount(params, _session, socket) do
     section =
       params["section_slug"]
       |> Content.get_section_by_slug()
       |> Section.with_latest_items(3)
       |> Section.with_top_items(3, :year)
       |> Section.with_items_count()
+
+    categories = Category.with_top_items(section.id, 3)
+
+    {
+      :ok,
+      assign(socket, section: section, categories: categories),
+      temporary_assigns: [items: []]
+    }
+  end
+
+  def render(assigns), do: SectionView.render("show_live.html", assigns)
+
+  def handle_params(params, _url, socket) do
+    section = socket.assigns.section
 
     socket =
       case Content.get_category_by_slug(params["category_slug"]) do
@@ -54,10 +62,6 @@ defmodule AppWeb.SectionLive do
 
           assign(socket, category: category, items: items)
       end
-
-    categories = Category.with_top_items(section.id, 3)
-
-    socket = assign(socket, section: section, categories: categories)
 
     {:noreply, socket}
   end
