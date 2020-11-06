@@ -1,8 +1,8 @@
 defmodule AppWeb.SectionLive do
   use AppWeb, :live_view
 
-  alias App.{Content, Repo}
-  alias App.Content.{Category, Item, Section}
+  alias App.Content
+  alias App.Content.{Category, Section}
   alias AppWeb.SectionView
 
   def mount(params, _session, socket) do
@@ -26,43 +26,26 @@ defmodule AppWeb.SectionLive do
 
   def handle_params(params, _url, socket) do
     section = socket.assigns.section
+    category = Content.get_category_by_slug(params["category_slug"])
+    sort_by = if String.to_atom(params["sort"] || "top") == :top, do: :top, else: :new
+    items = Content.list_items(section, category, sort_by)
 
-    socket =
-      case Content.get_category_by_slug(params["category_slug"]) do
-        nil ->
-          items =
-            section.id
-            |> Item.approved_by_section_query()
-            |> Item.top_by_likes_query(20)
-            |> Repo.all()
+    # socket =
+    #   if is_nil(category) do
+    #     IO.puts("push_patch")
 
-          socket = assign(socket, category: nil, items: items)
+    #     push_patch(socket,
+    #       to:
+    #         Routes.live_path(
+    #           socket,
+    #           __MODULE__,
+    #           section.slug
+    #         )
+    #     )
+    #   else
+    #     socket
+    #   end
 
-          if params["category_slug"] do
-            push_patch(socket,
-              to:
-                Routes.live_path(
-                  socket,
-                  __MODULE__,
-                  section.slug
-                )
-            )
-          else
-            socket
-          end
-
-        category ->
-          items =
-            section.id
-            |> Item.approved_by_section_query()
-            |> Item.with_category_query()
-            |> Item.top_by_likes_query(20)
-            |> Repo.all()
-            |> Enum.filter(fn item -> item.category.slug == category.slug end)
-
-          assign(socket, category: category, items: items)
-      end
-
-    {:noreply, socket}
+    {:noreply, assign(socket, category: category, items: items, sort_by: sort_by)}
   end
 end
