@@ -49,7 +49,8 @@ defmodule App.Admin.ItemAdmin do
       has_trial: nil,
       likes: nil,
       section_id: nil,
-      is_approved: nil
+      is_approved: nil,
+      inserted_at: nil
     ]
   end
 

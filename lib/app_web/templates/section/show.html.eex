@@ -34,7 +34,7 @@
       <%= for category <- @categories do %>
       <div class="p-4">
         <h3 class="text-lg font-semibold underline">
-          <%= link category.name, to: Routes.section_category_path(@conn, :show, @section.slug, category.slug) %>
+          <%= # link category.name, to: Routes.section_live_path(@conn, AppWeb.ItemListLive, @section.slug, category.slug) %>
         </h3>
         <p class="mb-4"><%= category.items_count %> items</p>
         <i>Popular in this category</i>

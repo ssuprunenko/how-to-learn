@@ -18,7 +18,7 @@ defmodule AppWeb.Plugs.SetSection do
 
   def redirect_to_default(conn) do
     conn
-    |> Phoenix.Controller.redirect(to: AppWeb.Router.Helpers.section_path(conn, :show, "english"))
+    |> Phoenix.Controller.redirect(to: AppWeb.Router.Helpers.live_path(conn, AppWeb.SectionLive, "english"))
     |> halt()
   end
 end

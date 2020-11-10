@@ -51,7 +51,8 @@ defmodule App.Content.Item do
       :has_trial,
       :likes,
       :section_id,
-      :is_approved
+      :is_approved,
+      :inserted_at
     ])
     |> validate_required([:name, :slug, :url, :section_id])
     |> unique_constraint(:slug)
@@ -63,8 +64,12 @@ defmodule App.Content.Item do
     )
   end
 
-  def top_by_likes_query(query, limit) do
+  def sort_by_query(query, :top, limit) do
     from(i in query, order_by: [desc: i.likes], limit: ^limit)
+  end
+
+  def sort_by_query(query, :new, limit) do
+    from(i in query, order_by: [desc: i.inserted_at], limit: ^limit)
   end
 
   def latest(query, limit) do
@@ -104,9 +109,15 @@ defmodule App.Content.Item do
       where: c.is_published,
       select_merge: %{
         category: %{name: c.name, slug: c.slug}
-      },
-      order_by: [desc: i.likes]
+      }
     )
+  end
+
+  def count(query) do
+    from(i in query,
+      select: count(i.id)
+    )
+    |> Repo.one()
   end
 
   # def with_fields_for(query, :home) do

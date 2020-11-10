@@ -36,6 +36,8 @@ defmodule App.Content do
   """
   def get_category(id), do: Repo.get(Category, id)
 
+  def get_category_by_slug(nil), do: nil
+
   def get_category_by_slug(slug) do
     Repo.get_by(Category, slug: slug, is_published: true)
   end
@@ -82,6 +84,22 @@ defmodule App.Content do
   """
   def list_items do
     Repo.all(Item)
+  end
+
+  def list_items(section, nil, sort_by) do
+    section.id
+    |> Item.approved_by_section_query()
+    |> Item.sort_by_query(sort_by, 20)
+    |> Repo.all()
+  end
+
+  def list_items(section, category, sort_by) do
+    section.id
+    |> Item.approved_by_section_query()
+    |> Item.with_category_query()
+    |> Item.sort_by_query(sort_by, 20)
+    |> Repo.all()
+    |> Enum.filter(fn item -> item.category.slug == category.slug end)
   end
 
   @doc """
