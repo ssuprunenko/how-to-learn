@@ -1,11 +1,11 @@
-<div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+<div class="px-4 mx-auto bg-cool-gray-50 max-w-7xl sm:px-6 lg:px-8">
   <div class="flex flex-col w-full max-w-5xl mx-auto">
     <div class="flex-grow xl:px-8 lg:flex">
       <div class="flex-1 min-w-0 px-4 py-6 lg:pl-0">
-        <h1 class="text-3xl">
+        <h1 class="text-4xl font-bold leading-10 text-cool-gray-900">
           <%= "Best #{if is_nil(@category), do: "Resources", else: @category.name} to learn #{@section.name}" %>
         </h1>
-        <p><%= @section.summary %></p>
+        <p class="mt-1 text-xl leading-7 text-cool-gray-600"><%= @section.summary %></p>
 
         <div class="flex mt-8">
           <%= live_patch "Top", to: sort_items_path(@socket, @section, @category, "top"), class: "inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none #{ sort_active_classes(@sort_by, :top)}" %>
@@ -15,20 +15,7 @@
         <%# Items %>
         <div class="mt-4 space-y-6">
           <%= for item <- @items do %>
-            <div>
-              <h3 class="font-semibold"><%= item.name %></h3>
-              <p><%= raw(item.summary) %></p>
-              <p class="mt-2 text-sm leading-5">
-                <span class="px-2 py-1 font-medium text-green-800 bg-green-100 rounded"><%= item.license |> to_string() |> String.capitalize() %></span>
-                <%= if item.has_trial do %>
-                  (Free Trial)
-                <% end %>
-              </p>
-              <p class="mt-2 text-sm text-gray-600">
-                Added <%= Timex.format!(item.inserted_at, "%F", :strftime) %>
-              </p>
-              <p class="mt-2 italic"><%= "#{item.likes} likes" %></p>
-            </div>
+            <%= live_component @socket, AppWeb.ItemComponent, item: item, id: item.slug %>
           <% end %>
         </div>
       </div>
