@@ -19,7 +19,7 @@ defmodule App.Accounts.UserNotifier do
 
     ==============================
 
-    Hi #{user.email},
+    Hi #{user.name || user.email},
 
     You can confirm your account by visiting the URL below:
 
@@ -39,7 +39,7 @@ defmodule App.Accounts.UserNotifier do
 
     ==============================
 
-    Hi #{user.email},
+    Hi #{user.name || user.email},
 
     You can reset your password by visiting the URL below:
 
@@ -59,7 +59,7 @@ defmodule App.Accounts.UserNotifier do
 
     ==============================
 
-    Hi #{user.email},
+    Hi #{user.name || user.email},
 
     You can change your email by visiting the URL below:
 
