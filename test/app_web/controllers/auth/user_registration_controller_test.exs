@@ -44,13 +44,13 @@ defmodule AppWeb.Auth.UserRegistrationControllerTest do
     test "render errors for invalid data", %{conn: conn} do
       conn =
         post(conn, Routes.auth_user_registration_path(conn, :create), %{
-          "user" => %{"email" => "with spaces", "password" => "too short"}
+          "user" => %{"email" => "with spaces", "password" => "short"}
         })
 
       response = html_response(conn, 200)
       assert response =~ "<h1>Register</h1>"
       assert response =~ "must have the @ sign and no spaces"
-      assert response =~ "should be at least 12 character"
+      assert response =~ "should be at least 8 character"
     end
   end
 end
