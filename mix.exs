@@ -35,12 +35,16 @@ defmodule App.MixProject do
     [
       {:phoenix, "~> 1.5.4"},
       
+      # PostgreSQL
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
       {:ecto_enum, "~> 1.4"},
       {:postgrex, ">= 0.0.0"},
+
+      # Time helpers
       {:timex, "~> 3.6"},
 
+      # Live View
       {:phoenix_live_view, "~> 0.14.7"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_dashboard, "~> 0.3"},
@@ -52,7 +56,12 @@ defmodule App.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       
+      # Admin
       {:kaffy, git: "https://github.com/aesmail/kaffy"},
+
+      # Auth
+      {:phx_gen_auth, "~> 0.5", only: [:dev], runtime: false},
+      {:argon2_elixir, "~> 2.0"},
       
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       

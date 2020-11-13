@@ -10,6 +10,11 @@ defmodule App.Admin.Config do
             schema: App.Content.CategoryItem, admin: App.Admin.CategoryItemAdmin
           ]
         ]
+      ],
+      accounts: [
+        resources: [
+          user: [schema: App.Accounts.User, admin: App.Admin.UserAdmin]
+        ]
       ]
     ]
   end
