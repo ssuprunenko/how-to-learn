@@ -93,14 +93,14 @@ defmodule AppWeb.Auth.UserAuth do
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Accounts.get_user_by_session_token(user_token)
 
-    {user, conn} =
-      case user do
-        nil ->
-          create_guest(conn)
+    # {user, conn} =
+    #   case user do
+    #     nil ->
+    #       create_guest(conn)
 
-        _ ->
-          {user, conn}
-      end
+    #     _ ->
+    #       {user, conn}
+    #   end
 
     assign(conn, :current_user, user)
   end

@@ -15,11 +15,7 @@ defmodule AppWeb.SectionLive do
 
     categories = Category.with_top_items(section.id, 3)
 
-    {
-      :ok,
-      assign(socket, section: section, categories: categories),
-      temporary_assigns: [items: []]
-    }
+    {:ok, assign(socket, section: section, categories: categories)}
   end
 
   def render(assigns), do: SectionView.render("show_live.html", assigns)
@@ -47,5 +43,14 @@ defmodule AppWeb.SectionLive do
     #   end
 
     {:noreply, assign(socket, category: category, items: items, sort_by: sort_by)}
+  end
+
+  def handle_info({:update_item, %{slug: slug} = updated_item}, socket) do
+    items =
+      Enum.map(socket.assigns.items, fn item ->
+        if item.slug == slug, do: updated_item, else: item
+      end)
+
+    {:noreply, assign(socket, items: items)}
   end
 end

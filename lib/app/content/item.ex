@@ -25,6 +25,7 @@ defmodule App.Content.Item do
     field :is_approved, :boolean, default: false
 
     field :category, :map, virtual: true
+    field :liked, :boolean, default: false, virtual: true
 
     belongs_to :section, Section
 
