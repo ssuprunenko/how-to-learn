@@ -79,6 +79,12 @@ defmodule App.Accounts do
     |> Repo.insert()
   end
 
+  def register_guest(attrs) do
+    %User{}
+    |> User.guest_changeset(attrs)
+    |> Repo.insert()
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 
