@@ -20,16 +20,16 @@ defmodule AppWeb.ItemComponent do
         Added <%= Timex.format!(@item.inserted_at, "%F", :strftime) %>
       </p>
 
-      <span class="mt-2 inline-flex rounded-md shadow-sm">
+      <span class="inline-flex mt-2 rounded-md shadow-sm">
         <%= if @item.liked do %>
           <button
             phx-click="unlike"
             phx-target="<%= @myself %>"
             type="button"
-            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
+            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-5 text-white transition duration-100 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
           >
             <!-- Heroicon name: heart -->
-            <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <svg class="w-5 h-5 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
             </svg>
             <%= @item.likes %>
@@ -39,10 +39,10 @@ defmodule AppWeb.ItemComponent do
             phx-click="like"
             phx-target="<%= @myself %>"
             type="button"
-            class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-700 transition duration-100 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50"
           >
             <!-- Heroicon name: heart -->
-            <svg  class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <svg  class="w-5 h-5 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
             </svg>
             <%= @item.likes %>
