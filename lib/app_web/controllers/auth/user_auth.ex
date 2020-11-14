@@ -3,7 +3,6 @@ defmodule AppWeb.Auth.UserAuth do
   import Phoenix.Controller
 
   alias App.Accounts
-  alias App.Accounts.User
   alias AppWeb.Router.Helpers, as: Routes
 
   # Make the remember me cookie valid for 60 days.
@@ -93,30 +92,9 @@ defmodule AppWeb.Auth.UserAuth do
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Accounts.get_user_by_session_token(user_token)
 
-    # {user, conn} =
-    #   case user do
-    #     nil ->
-    #       create_guest(conn)
-
-    #     _ ->
-    #       {user, conn}
-    #   end
-
-    assign(conn, :current_user, user)
-  end
-
-  def create_guest(conn) do
-    password = :crypto.strong_rand_bytes(8) |> Base.url_encode64()
-    {:ok, guest} = Accounts.register_guest(%{password: password})
-    token = Accounts.generate_user_session_token(guest)
-
-    conn =
-      conn
-      |> renew_session()
-      |> put_session(:user_token, token)
-      |> put_session(:live_socket_id, "users_sessions:#{Base.url_encode64(token)}")
-
-    {guest, conn}
+    conn
+    |> assign(:current_user, user)
+    |> put_session(:user_id, user && user.id)
   end
 
   defp ensure_user_token(conn) do
@@ -137,7 +115,7 @@ defmodule AppWeb.Auth.UserAuth do
   Used for routes that require the user to not be authenticated.
   """
   def redirect_if_user_is_authenticated(conn, _opts) do
-    if conn.assigns[:current_user] && not User.guest?(conn.assigns[:current_user]) do
+    if conn.assigns[:current_user] do
       conn
       |> redirect(to: signed_in_path(conn))
       |> halt()

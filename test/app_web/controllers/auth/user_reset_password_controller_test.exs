@@ -30,7 +30,6 @@ defmodule AppWeb.Auth.UserResetPasswordControllerTest do
       assert Repo.get_by!(Accounts.UserToken, user_id: user.id).context == "reset_password"
     end
 
-    @tag :skip
     test "does not send reset password token if email is invalid", %{conn: conn} do
       conn =
         post(conn, Routes.auth_user_reset_password_path(conn, :create), %{

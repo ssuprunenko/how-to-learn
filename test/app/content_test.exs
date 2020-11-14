@@ -3,6 +3,7 @@ defmodule App.ContentTest do
   import App.Factory
 
   alias App.Content
+  alias App.Content.Items
 
   describe "categories" do
     test "list_categories/0 returns all categories" do
@@ -36,12 +37,12 @@ defmodule App.ContentTest do
   describe "items" do
     test "list_items/0 returns all items" do
       insert(:item)
-      assert length(Content.list_items()) == 1
+      assert length(Items.list_items()) == 1
     end
 
     test "get_item/1 returns the item with given id" do
       item = insert(:item)
-      assert Content.get_item(item.id).id == item.id
+      assert Items.get_item(item.id).id == item.id
     end
   end
 end

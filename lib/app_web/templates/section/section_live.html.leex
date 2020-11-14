@@ -15,7 +15,12 @@
         <%# Items %>
         <div class="mt-4 space-y-6">
           <%= for item <- @items do %>
-            <%= live_component @socket, AppWeb.ItemComponent, item: item, id: item.slug %>
+            <%= live_component @socket, 
+                  AppWeb.ItemComponent, 
+                  item: item, 
+                  id: item.slug,
+                  user_id: @user_id 
+            %>
           <% end %>
         </div>
       </div>

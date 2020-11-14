@@ -106,7 +106,6 @@ defmodule AppWeb.Auth.UserAuthTest do
       assert conn.assigns.current_user.id == user.id
     end
 
-    @tag :skip
     test "does not authenticate if data is missing", %{conn: conn, user: user} do
       _ = Accounts.generate_user_session_token(user)
       conn = UserAuth.fetch_current_user(conn, [])
