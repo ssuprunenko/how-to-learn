@@ -117,4 +117,10 @@ defmodule App.Content do
 
   """
   def get_item(id), do: Repo.get(Item, id)
+
+  def update_item(%Item{} = item, attrs) do
+    item
+    |> Item.changeset(attrs)
+    |> Repo.update()
+  end
 end
