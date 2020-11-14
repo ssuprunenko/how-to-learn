@@ -18,7 +18,7 @@ defmodule AppWeb.SectionLive do
     {:ok, assign(socket, section: section, categories: categories)}
   end
 
-  def render(assigns), do: SectionView.render("show_live.html", assigns)
+  def render(assigns), do: SectionView.render("section_live.html", assigns)
 
   def handle_params(params, _url, socket) do
     section = socket.assigns.section
