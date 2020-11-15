@@ -1,5 +1,6 @@
 defmodule App.Admin.CategoryItemAdmin do
   alias App.Content
+  alias App.Content.Items
 
   def plural_name(_) do
     "Categories-Items"
@@ -13,8 +14,8 @@ defmodule App.Admin.CategoryItemAdmin do
         filters: Enum.map(Content.list_categories(), fn c -> {c.name, c.id} end)
       },
       item_id: %{
-        value: fn ci -> Content.get_item(ci.item_id).name end,
-        filters: Enum.map(Content.list_items(), fn i -> {i.name, i.id} end)
+        value: fn ci -> Items.get_item(ci.item_id).name end,
+        filters: Enum.map(Items.list_items(), fn i -> {i.name, i.id} end)
       },
       inserted_at: nil
     ]

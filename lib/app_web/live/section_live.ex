@@ -2,10 +2,10 @@ defmodule AppWeb.SectionLive do
   use AppWeb, :live_view
 
   alias App.Content
-  alias App.Content.{Category, Section}
+  alias App.Content.{Category, Items, Section}
   alias AppWeb.SectionView
 
-  def mount(params, _session, socket) do
+  def mount(params, %{"user_id" => user_id}, socket) do
     section =
       params["section_slug"]
       |> Content.get_section_by_slug()
@@ -15,20 +15,20 @@ defmodule AppWeb.SectionLive do
 
     categories = Category.with_top_items(section.id, 3)
 
-    {
-      :ok,
-      assign(socket, section: section, categories: categories),
-      temporary_assigns: [items: []]
-    }
+    {:ok, assign(socket, section: section, categories: categories, user_id: user_id)}
   end
 
-  def render(assigns), do: SectionView.render("show_live.html", assigns)
+  def render(assigns), do: SectionView.render("section_live.html", assigns)
 
   def handle_params(params, _url, socket) do
     section = socket.assigns.section
     category = Content.get_category_by_slug(params["category_slug"])
     sort_by = if String.to_atom(params["sort"] || "top") == :top, do: :top, else: :new
-    items = Content.list_items(section, category, sort_by)
+
+    items =
+      section
+      |> Items.list_items(category, sort_by)
+      |> Items.mark_installed(socket.assigns.user_id)
 
     # socket =
     #   if is_nil(category) do
@@ -47,5 +47,23 @@ defmodule AppWeb.SectionLive do
     #   end
 
     {:noreply, assign(socket, category: category, items: items, sort_by: sort_by)}
+  end
+
+  def handle_info({:update_item, %{slug: slug} = updated_item, flash}, socket) do
+    items =
+      Enum.map(socket.assigns.items, fn item ->
+        if item.slug == slug, do: updated_item, else: item
+      end)
+
+    socket =
+      case flash do
+        {level, message} ->
+          put_flash(socket, level, message)
+
+        _ ->
+          socket
+      end
+
+    {:noreply, assign(socket, items: items)}
   end
 end

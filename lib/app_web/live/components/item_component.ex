@@ -1,26 +1,49 @@
 defmodule AppWeb.ItemComponent do
   use AppWeb, :live_component
+  alias App.Content.Items
+  alias AppWeb.SectionView
 
   def mount(socket) do
     {:ok, socket}
   end
 
-  def render(assigns) do
-    ~L"""
-    <div>
-      <h3 class="font-semibold"><%= @item.name %></h3>
-      <p><%= raw(@item.summary) %></p>
-      <p class="mt-2 text-sm leading-5">
-        <span class="px-2 py-1 font-medium text-green-800 bg-green-100 rounded"><%= @item.license |> to_string() |> String.capitalize() %></span>
-        <%= if @item.has_trial do %>
-          (Free Trial)
-        <% end %>
-      </p>
-      <p class="mt-2 text-sm text-gray-600">
-        Added <%= Timex.format!(@item.inserted_at, "%F", :strftime) %>
-      </p>
-      <p class="mt-2 italic"><%= "#{@item.likes} likes" %></p>
-    </div>
-    """
+  def render(assigns), do: SectionView.render("item_component.html", assigns)
+
+  def handle_event("like", _params, %{assigns: %{item: item, user_id: user_id}} = socket)
+      when is_binary(user_id) do
+    with true <- Items.can_like?(item.id, user_id),
+         {:ok, _} <- Items.create_like(item.id, user_id),
+         {:ok, item} <- Items.update_item(item, %{likes: item.likes + 1}) do
+      send(self(), {:update_item, %{item | liked: true}, nil})
+      {:noreply, socket}
+    end
+  end
+
+  def handle_event("like", _params, %{assigns: %{item: item, user_id: nil}} = socket) do
+    send(
+      self(),
+      {
+        :update_item,
+        %{item | likes: item.likes + 1, liked: true},
+        {:info, "Log in or register to save your likes"}
+      }
+    )
+
+    {:noreply, socket}
+  end
+
+  def handle_event("unlike", _params, %{assigns: %{item: item, user_id: user_id}} = socket)
+      when is_binary(user_id) do
+    with true <- Items.can_unlike?(item.id, user_id),
+         {:ok, item} <- Items.update_item(item, %{likes: item.likes - 1}),
+         {:ok, _} <- Items.delete_like(item.id, user_id) do
+      send(self(), {:update_item, %{item | liked: false}, nil})
+      {:noreply, socket}
+    end
+  end
+
+  def handle_event("unlike", _params, %{assigns: %{item: item, user_id: nil}} = socket) do
+    send(self(), {:update_item, %{item | likes: item.likes - 1, liked: false}, nil})
+    {:noreply, socket}
   end
 end

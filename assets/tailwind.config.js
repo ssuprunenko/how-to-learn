@@ -25,6 +25,7 @@ module.exports = {
   purge: [
     '../lib/app_web/templates/**/*.html.eex',
     '../lib/app_web/templates/**/*.html.leex',
-    '../lib/app_web/views/**/*.ex'
+    '../lib/app_web/views/**/*.ex',
+    '../lib/app_web/live/**/*.ex'
   ]
 }
