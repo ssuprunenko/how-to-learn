@@ -14,7 +14,9 @@ config :app, AppWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
-config :logger, level: :info
+config :logger, 
+  level: :info,
+  backends: [:console, Sentry.LoggerBackend]
 
 # ## SSL Support
 #
@@ -45,10 +47,19 @@ config :logger, level: :info
 # We also recommend setting `force_ssl` in your endpoint, ensuring
 # no data is ever sent via http, always redirecting to https:
 #
-config :app, AppWeb.Endpoint,
-  force_ssl: [rewrite_on: [:x_forwarded_proto], hsts: true, host: nil]
+config :app, AppWeb.Endpoint, force_ssl: [rewrite_on: [:x_forwarded_proto], hsts: true, host: nil]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
+
+config :sentry,
+  dsn: "https://5fc62cde6e99494a941ec3378c652503@o477008.ingest.sentry.io/5517355",
+  environment_name: :prod,
+  enable_source_code_context: true,
+  root_source_code_path: File.cwd!(),
+  tags: %{
+    env: "production"
+  },
+  included_environments: [:prod]
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
