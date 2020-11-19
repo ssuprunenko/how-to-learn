@@ -1,10 +1,10 @@
 const path = require('path')
 const glob = require('glob')
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (env, options) => {
   const devMode = options.mode !== 'production'
@@ -12,8 +12,8 @@ module.exports = (env, options) => {
   return {
     optimization: {
       minimizer: [
-        new TerserPlugin({ cache: true, parallel: true, sourceMap: devMode }),
-        new OptimizeCSSAssetsPlugin({})
+        new TerserPlugin(),
+        new CssMinimizerPlugin()
       ]
     },
     entry: {
@@ -61,6 +61,6 @@ module.exports = (env, options) => {
         patterns: [{ from: 'static/', to: '../' }]
       })
     ]
-    .concat(devMode ? [new HardSourceWebpackPlugin()] : [])
+    // .concat(devMode ? [new HardSourceWebpackPlugin()] : [])
   }
 }
