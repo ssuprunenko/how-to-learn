@@ -15,8 +15,10 @@ module.exports = {
     }
   },
   plugins: [
-    require('@tailwindcss/ui'),
-    require('tailwindcss-truncate-multiline')()
+    require('tailwindcss-truncate-multiline')(),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio')
   ],
   future: {
     removeDeprecatedGapUtilities: true,
