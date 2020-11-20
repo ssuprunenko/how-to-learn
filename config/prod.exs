@@ -10,11 +10,11 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :app, AppWeb.Endpoint,
-  url: [scheme: "https", host: "howtolearn.link", port: 443],
+  url: [scheme: "http", host: "howtolearn.link", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
-config :logger, 
+config :logger,
   level: :info,
   backends: [:console, Sentry.LoggerBackend]
 
@@ -47,7 +47,7 @@ config :logger,
 # We also recommend setting `force_ssl` in your endpoint, ensuring
 # no data is ever sent via http, always redirecting to https:
 #
-config :app, AppWeb.Endpoint, force_ssl: [rewrite_on: [:x_forwarded_proto], hsts: true, host: nil]
+# config :app, AppWeb.Endpoint, force_ssl: [rewrite_on: [:x_forwarded_proto], hsts: true, host: nil]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
