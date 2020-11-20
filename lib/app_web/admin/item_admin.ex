@@ -41,6 +41,7 @@ defmodule App.Admin.ItemAdmin do
       name: nil,
       slug: nil,
       url: nil,
+      logo: %{type: :file},
       author: nil,
       author_url: %{label: "Author's website"},
       summary: %{label: "Short Summary", type: :richtext},

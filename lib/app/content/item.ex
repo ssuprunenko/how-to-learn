@@ -1,5 +1,6 @@
 defmodule App.Content.Item do
   use Ecto.Schema
+  use Waffle.Ecto.Schema
   import Ecto.Changeset
   import Ecto.Query
   alias App.Content.{Category, CategoryItem, Section}
@@ -11,6 +12,7 @@ defmodule App.Content.Item do
     field :name, :string
     field :slug, :string
     field :url, :string
+    field :logo, App.Uploaders.Logo.Type
 
     field :author, :string
     field :author_url, :string
@@ -55,6 +57,7 @@ defmodule App.Content.Item do
       :is_approved,
       :inserted_at
     ])
+    |> cast_attachments(attrs, [:logo], allow_urls: true, allow_paths: true)
     |> validate_required([:name, :slug, :url, :section_id])
     |> unique_constraint(:slug)
   end

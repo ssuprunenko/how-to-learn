@@ -27,4 +27,12 @@ defmodule AppWeb.SectionView do
   def sort_active_classes(_, _) do
     "text-gray-600 hover:text-gray-700 focus:text-gray-700"
   end
+
+  def logo_url(%{logo: nil} = item, version) do
+    App.Uploaders.Logo.url({nil, item}, version)
+  end
+
+  def logo_url(item, version) do
+    "/assets" <> App.Uploaders.Logo.url({item.logo, item}, version)
+  end
 end
