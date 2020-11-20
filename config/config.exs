@@ -38,6 +38,10 @@ config :app, :basic_auth,
   username: System.get_env("ADMIN_USERNAME", "admin"),
   password: System.get_env("ADMIN_PASSWORD", "password")
 
+config :waffle,
+  storage: Waffle.Storage.Local,
+  storage_dir_prefix: System.get_env("STORAGE_ASSETS_PATH", "storage/assets/")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

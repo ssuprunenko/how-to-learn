@@ -45,3 +45,5 @@ npm-debug.log
 # data and you should not commit them into version control.
 dev.secret.exs
 test.secret.exs
+
+storage/
