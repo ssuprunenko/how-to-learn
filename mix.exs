@@ -49,9 +49,9 @@ defmodule App.MixProject do
       {:timex, "~> 3.6"},
 
       # Live View
-      {:phoenix_live_view, "~> 0.14.7"},
+      {:phoenix_live_view, "~> 0.15"},
       {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_dashboard, "~> 0.3"},
+      {:phoenix_live_dashboard, "~> 0.4"},
       {:curtail, "~> 2.0"},
 
       {:telemetry_metrics, "~> 0.4"},
