@@ -25,6 +25,10 @@ defmodule AppWeb.Router do
     plug AppWeb.Plugs.SetSection
   end
 
+  pipeline :require_item do
+    plug AppWeb.Plugs.SetItem
+  end
+
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -74,14 +78,20 @@ defmodule AppWeb.Router do
     get "/users/confirm/:token", UserConfirmationController, :confirm
   end
 
+  scope "/r", AppWeb do
+    pipe_through [:browser, :require_item]
+
+    get "/:slug/away", ItemController, :away, as: :item_away
+  end
+
   scope "/", AppWeb do
     pipe_through [:browser, :require_section]
 
     # live "/", PageLive, :index
     get "/home/:section_slug", SectionController, :show
 
-    live "/s/:section_slug/c/:category_slug", SectionLive
-    live "/s/:section_slug", SectionLive
+    live "/:section_slug/:category_slug", SectionLive
+    live "/:section_slug", SectionLive
     live "/", SectionLive
   end
 
