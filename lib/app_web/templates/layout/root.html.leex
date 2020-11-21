@@ -13,6 +13,7 @@
 
     <script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <script async defer data-domain="howtolearn.link" src="https://plausible.io/js/plausible.js"></script>
   </head>
   <body>
     <%= render "_user_menu.html", assigns %>
