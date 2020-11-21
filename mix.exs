@@ -34,20 +34,24 @@ defmodule App.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.5.4"},
-      
+
       # PostgreSQL
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
       {:ecto_enum, "~> 1.4"},
       {:postgrex, ">= 0.0.0"},
 
+      # Assets
+      {:waffle, "~> 1.1.3"},
+      {:waffle_ecto, "~> 0.0.9"},
+
       # Time helpers
       {:timex, "~> 3.6"},
 
       # Live View
-      {:phoenix_live_view, "~> 0.14.7"},
+      {:phoenix_live_view, "~> 0.15"},
       {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_dashboard, "~> 0.3"},
+      {:phoenix_live_dashboard, "~> 0.4"},
       {:curtail, "~> 2.0"},
 
       {:telemetry_metrics, "~> 0.4"},
@@ -55,7 +59,7 @@ defmodule App.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.4"},
-      
+
       # Admin
       {:kaffy, git: "https://github.com/aesmail/kaffy"},
 
@@ -65,9 +69,9 @@ defmodule App.MixProject do
 
       # Error monitoring
       {:sentry, "~> 8.0"},
-      
+
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      
+
       {:floki, ">= 0.27.0", only: :test},
       {:ex_machina, "~> 2.4", only: :test},
       {:faker, "~> 0.14", only: :test},

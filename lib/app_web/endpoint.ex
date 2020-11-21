@@ -33,6 +33,11 @@ defmodule AppWeb.Endpoint do
     gzip: false,
     only: ~w(assets)
 
+  plug Plug.Static,
+    at: "/assets",
+    from: Path.expand(System.get_env("STORAGE_ASSETS_PATH", "storage/assets/")),
+    gzip: false
+
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do

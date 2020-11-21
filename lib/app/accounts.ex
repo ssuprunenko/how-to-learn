@@ -352,4 +352,8 @@ defmodule App.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  def list_users do
+    Repo.all(User)
+  end
 end

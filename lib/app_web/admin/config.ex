@@ -13,7 +13,8 @@ defmodule App.Admin.Config do
       ],
       accounts: [
         resources: [
-          user: [schema: App.Accounts.User, admin: App.Admin.UserAdmin]
+          user: [schema: App.Accounts.User, admin: App.Admin.UserAdmin],
+          item_like: [schema: App.Content.ItemLike, admin: App.Admin.ItemLikeAdmin]
         ]
       ]
     ]
