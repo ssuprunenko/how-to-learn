@@ -4,7 +4,7 @@ defmodule App.MixProject do
   def project do
     [
       app: :app,
-      version: "0.1.0",
+      version: "0.2.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
@@ -34,6 +34,8 @@ defmodule App.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.5.4"},
+      {:plug_cowboy, "~> 2.4"},
+      {:jason, "~> 1.2"},
 
       # PostgreSQL
       {:phoenix_ecto, "~> 4.1"},
@@ -53,12 +55,9 @@ defmodule App.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_dashboard, "~> 0.4"},
       {:curtail, "~> 2.0"},
-
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
-      {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.4"},
 
       # Admin
       {:kaffy, git: "https://github.com/aesmail/kaffy"},
@@ -70,8 +69,8 @@ defmodule App.MixProject do
       # Error monitoring
       {:sentry, "~> 8.0"},
 
+      # Dev & test env
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-
       {:floki, ">= 0.27.0", only: :test},
       {:ex_machina, "~> 2.4", only: :test},
       {:faker, "~> 0.14", only: :test},

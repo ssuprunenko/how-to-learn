@@ -1,4 +1,4 @@
-<div class="px-2 mx-auto mb-20 bg-cool-gray-50 max-w-7xl lg:px-6">
+<div class="px-2 mx-auto mb-20 max-w-7xl lg:px-6">
   <div class="flex flex-col w-full max-w-5xl mx-auto">
     <div class="flex-grow lg:flex">
       <div class="flex-1 min-w-0 px-4 py-6 lg:pl-0">
@@ -13,7 +13,7 @@
         </div>
 
         <%# Items %>
-        <div class="mt-4 space-y-6">
+        <div class="mt-4 space-y-4">
           <%= for item <- @items do %>
             <%= live_component @socket,
                   AppWeb.ItemComponent,
@@ -27,7 +27,7 @@
 
       <div class="px-4 py-6 space-y-8 lg:flex-shrink-0 lg:border-l lg:border-gray-200 xl:pr-0">
         <div>
-          <h2 class="text-xl">Categories</h2>
+          <h3 class="text-xl">Categories</h3>
           <ul>
             <li>
               <%= live_patch "All (#{@section.items_count})", to: Routes.live_path(@socket, AppWeb.SectionLive, @section.slug), class: "underline #{if is_nil(@category), do: 'font-semibold'}" %>
@@ -41,7 +41,7 @@
         </div>
 
         <div>
-          <h2 class="text-xl">Top Items</h2>
+          <h3 class="text-xl">Top Items</h3>
           <ul>
             <%= for item <- @section.top_items do %>
               <li><%= "#{item.name} (#{item.likes} likes)" %></li>
@@ -50,7 +50,7 @@
         </div>
 
         <div>
-          <h2 class="text-xl">Latest Items</h2>
+          <h3 class="text-xl">Latest Items</h3>
           <ul>
             <%= for item <- @section.latest_items do %>
               <li><%= item.name %></li>
