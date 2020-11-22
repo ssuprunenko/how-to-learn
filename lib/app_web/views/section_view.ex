@@ -33,6 +33,11 @@ defmodule AppWeb.SectionView do
   end
 
   def logo_url(item, version) do
-    "/assets" <> App.Uploaders.Logo.url({item.logo, item}, version)
+    url =
+      {item.logo, item}
+      |> App.Uploaders.Logo.url(version)
+      |> String.replace("v=", "vsn=")
+
+    "/assets" <> url
   end
 end

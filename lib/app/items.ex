@@ -62,6 +62,12 @@ defmodule App.Content.Items do
   """
   def get_item(id), do: Repo.get(Item, id)
 
+  def get_item_by_slug(nil), do: nil
+
+  def get_item_by_slug(slug) do
+    Repo.get_by(Item, slug: slug, is_approved: true)
+  end
+
   def update_item(%Item{} = item, attrs) do
     item
     |> Item.changeset(attrs)
