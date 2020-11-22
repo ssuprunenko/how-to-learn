@@ -5,7 +5,13 @@
   x-on:mouseenter="isLinkHidden = false; console.log('show')"
   x-on:mouseleave="isLinkHidden = true"
 >
-  <%= img_tag(logo_url(@item, :thumb), class: "flex-none w-16 h-16 lg:w-20 lg:h-20", alt: " logo", width: "80", height: "80") %>
+  <div class="flex-none w-16 pt-1 lg:w-20">
+    <picture>
+      <source type="image/webp" srcset="<%= logo_url(@item, :thumb_webp) %>">
+      <source type="image/png" srcset="<%= logo_url(@item, :thumb) %>">
+      <img src="<%= logo_url(@item, :thumb) %>" alt="<%= @item.name %> logo">
+    </picture>
+  </div>
 
   <div class="flex-1">
     <div class="flex items-baseline">
