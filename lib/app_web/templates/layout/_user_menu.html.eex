@@ -1,14 +1,10 @@
-<ul class="flex space-x-6 pt-6 pr-12 justify-end">
-<%= if @current_user && not User.guest?(@current_user) do %>
+<ul class="flex items-center self-end justify-between h-10 space-x-8 tracking-wide">
+<%= if @current_user do %>
   <li class="font-semibold"><%= @current_user.name || @current_user.email %></li>
-  <li><%= link "Settings", to: Routes.auth_user_settings_path(@conn, :edit), class: "underline" %></li>
-  <li><%= link "Log out", to: Routes.auth_user_session_path(@conn, :delete), method: :delete, class: "underline" %></li>
+  <li><%= link "Settings", to: Routes.auth_user_settings_path(@conn, :edit) %></li>
+  <li><%= link "Log out", to: Routes.auth_user_session_path(@conn, :delete), method: :delete %></li>
 <% else %>
-  <%= if User.guest?(@current_user) do %>
-    <li class="font-semibold">Guest</li>
-  <% end %>
-
-  <li><%= link "Register", to: Routes.auth_user_registration_path(@conn, :new), class: "underline" %></li>
-  <li><%= link "Log in", to: Routes.auth_user_session_path(@conn, :new), class: "underline" %></li>
+  <li><%= link "Register", to: Routes.auth_user_registration_path(@conn, :new) %></li>
+  <li><%= link "Log in", to: Routes.auth_user_session_path(@conn, :new) %></li>
 <% end %>
 </ul>

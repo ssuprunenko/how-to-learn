@@ -1,7 +1,7 @@
-<header>
-  <nav class="px-8 py-4">
+<header class="bg-white border-b-2 border-gray-200">
+  <nav class="flex items-center justify-between px-4 py-4 mx-auto lg:px-8 max-w-7xl">
     <%= unless is_nil(@section) do %>
-      <div x-data="{ isOpen: false }" class="relative inline-block text-left">
+      <div x-data="{ isOpen: false }" class="relative inline-block h-10 text-left">
         <div>
           <span class="inline-flex rounded-md shadow-sm">
             <button
@@ -106,5 +106,7 @@
         </div>
       </div>
     <% end %>
+
+    <%= render "_user_menu.html", conn: @conn, current_user: @current_user %>
   </nav>
 </header>

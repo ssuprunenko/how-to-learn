@@ -5,7 +5,7 @@ defmodule App.Uploaders.Logo do
   use Waffle.Ecto.Definition
 
   # To add a thumbnail version:
-  @versions [:original, :thumb]
+  @versions [:original, :thumb, :thumb_webp]
 
   # Override the bucket on a per definition basis:
   # def bucket do
@@ -13,13 +13,30 @@ defmodule App.Uploaders.Logo do
   # end
 
   # Whitelist file extensions:
-  # def validate({file, _}) do
-  #   ~w(.jpg .jpeg .gif .png) |> Enum.member?(Path.extname(file.file_name))
-  # end
+  def validate({file, _}) do
+    ~w(.jpg .jpeg .png .svg) |> Enum.member?(Path.extname(file.file_name))
+  end
 
   # Define a thumbnail transformation:
-  def transform(:thumb, _) do
-    {:convert, "-strip -thumbnail 256x256^ -gravity center -extent 256x256 -format png", :png}
+  def transform(:thumb, {%{file_name: file_name}, _}) do
+    if String.ends_with?(file_name, ".svg") do
+      :skip
+    else
+      {:convert, "-thumbnail 256x -format png", :png}
+    end
+  end
+
+  def transform(:thumb_webp, {%{file_name: file_name}, _}) do
+    cond do
+      String.ends_with?(file_name, ".png") ->
+        {:cwebp, "-mt -lossless -resize 256 0 -quiet -o", :webp}
+
+      String.ends_with?(file_name, ".svg") ->
+        :skip
+
+      true ->
+        {:cwebp, "-m 6 -pass 10 -mt -q 90 -jpeg_like -resize 256 0 -quiet -o", :webp}
+    end
   end
 
   # Override the persisted filenames:
@@ -33,6 +50,10 @@ defmodule App.Uploaders.Logo do
   end
 
   # Provide a default URL if there hasn't been a file uploaded
+  def default_url(:thumb_webp, _scope) do
+    "/images/default_logo_thumb.webp"
+  end
+
   def default_url(version, _scope) do
     "/images/default_logo_#{version}.png"
   end

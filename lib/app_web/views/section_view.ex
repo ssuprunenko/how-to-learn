@@ -22,10 +22,10 @@ defmodule AppWeb.SectionView do
     Routes.live_path(socket, AppWeb.SectionLive, section.slug, category.slug, sort: sort_by)
   end
 
-  def sort_active_classes(sort_by, sort_by), do: "bg-gray-300 text-black"
+  def sort_active_classes(sort_by, sort_by), do: "bg-gray-200 text-gray-900"
 
   def sort_active_classes(_, _) do
-    "text-gray-600 hover:text-gray-700 focus:text-gray-700"
+    "text-gray-500"
   end
 
   def logo_url(%{logo: nil} = item, version) do
