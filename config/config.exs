@@ -11,6 +11,10 @@ config :app,
   ecto_repos: [App.Repo],
   generators: [binary_id: true]
 
+config :app, App.Repo,
+  migration_primary_key: [name: :id, type: :binary_id],
+  migration_foreign_key: [column: :id, type: :binary_id]
+
 # Configures the endpoint
 config :app, AppWeb.Endpoint,
   url: [host: "localhost"],

@@ -51,7 +51,7 @@ defmodule AppWeb.SectionLiveTest do
 
       assert_html html do
         assert_html("h1", text: "Best #{category.name} to learn #{section.name}")
-        refute_html("h3")
+        refute_html("h2")
       end
     end
 
@@ -71,7 +71,7 @@ defmodule AppWeb.SectionLiveTest do
 
       assert_html html do
         assert_html("h1", text: "Best #{category.name} to learn #{section.name}")
-        assert_html("h3", count: 3)
+        assert_html("h2", count: 3)
         assert html =~ "All (5)"
         assert html =~ "#{category.name} (3)"
         assert html =~ "#{category_two.name} (2)"

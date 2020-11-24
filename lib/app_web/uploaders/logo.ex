@@ -14,19 +14,28 @@ defmodule App.Uploaders.Logo do
 
   # Whitelist file extensions:
   def validate({file, _}) do
-    ~w(.jpg .jpeg .png) |> Enum.member?(Path.extname(file.file_name))
+    ~w(.jpg .jpeg .png .svg) |> Enum.member?(Path.extname(file.file_name))
   end
 
   # Define a thumbnail transformation:
-  def transform(:thumb, _) do
-    {:convert, "-thumbnail 256x -format png", :png}
+  def transform(:thumb, {%{file_name: file_name}, _}) do
+    if String.ends_with?(file_name, ".svg") do
+      :skip
+    else
+      {:convert, "-thumbnail 256x -format png", :png}
+    end
   end
 
   def transform(:thumb_webp, {%{file_name: file_name}, _}) do
-    if String.ends_with?(file_name, ".png") do
-      {:cwebp, "-mt -lossless -resize 256 0 -quiet -o", :webp}
-    else
-      {:cwebp, "-m 6 -pass 10 -mt -q 90 -jpeg_like -resize 256 0 -quiet -o", :webp}
+    cond do
+      String.ends_with?(file_name, ".png") ->
+        {:cwebp, "-mt -lossless -resize 256 0 -quiet -o", :webp}
+
+      String.ends_with?(file_name, ".svg") ->
+        :skip
+
+      true ->
+        {:cwebp, "-m 6 -pass 10 -mt -q 90 -jpeg_like -resize 256 0 -quiet -o", :webp}
     end
   end
 
