@@ -78,6 +78,12 @@ defmodule AppWeb.Router do
     get "/users/confirm/:token", UserConfirmationController, :confirm
   end
 
+  scope "/", AppWeb do
+    pipe_through [:browser]
+
+    get "/", HomeController, :index
+  end
+
   scope "/r", AppWeb do
     pipe_through [:browser, :require_item]
 
@@ -87,12 +93,10 @@ defmodule AppWeb.Router do
   scope "/", AppWeb do
     pipe_through [:browser, :require_section]
 
-    # live "/", PageLive, :index
     get "/home/:section_slug", SectionController, :show
 
     live "/:section_slug/:category_slug", SectionLive
     live "/:section_slug", SectionLive
-    live "/", SectionLive
   end
 
   # Other scopes may use custom stacks.

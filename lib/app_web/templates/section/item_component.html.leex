@@ -6,15 +6,7 @@
   x-on:mouseleave="isLinkHidden = true"
 >
   <div class="flex-none w-16 sm:w-20">
-    <%= if @item.logo && String.ends_with?(@item.logo.file_name, ".svg") do %>
-      <img src="<%= logo_url(@item, :original) %>" alt="<%= @item.name %> logo" width="80" height="80">
-    <% else %>
-      <picture>
-        <source type="image/webp" srcset="<%= logo_url(@item, :thumb_webp) %>">
-        <source type="image/png" srcset="<%= logo_url(@item, :thumb) %>">
-        <img src="<%= logo_url(@item, :thumb) %>" alt="<%= @item.name %> logo" width="80" height="80">
-      </picture>
-    <% end %>
+    <%= render "_item_logo.html", item: @item, width: 80, height: 80 %>
   </div>
 
   <div class="self-start flex-1">
@@ -29,6 +21,7 @@
             rel="noopener"
             target="_blank"
           >
+          <!-- Heroicon name: external-link -->
           <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
             <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
             <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />

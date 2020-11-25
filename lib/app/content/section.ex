@@ -1,6 +1,7 @@
 defmodule App.Content.Section do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
   alias App.Content.Item
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -14,6 +15,7 @@ defmodule App.Content.Section do
 
     has_many :latest_items, Item
     has_many :top_items, Item
+    has_many :items, Item
 
     timestamps()
   end
@@ -42,6 +44,15 @@ defmodule App.Content.Section do
       |> Item.count()
 
     Map.put(section, :items_count, count)
+  end
+
+  def with_items_count(query) do
+    from(s in query,
+      left_join: i in assoc(s, :items),
+      on: i.is_approved,
+      group_by: s.id,
+      select: %{id: s.id, slug: s.slug, name: s.name, items_count: count(i.id)}
+    )
   end
 
   def with_top_items(%__MODULE__{id: id} = section, limit, range \\ :month) do

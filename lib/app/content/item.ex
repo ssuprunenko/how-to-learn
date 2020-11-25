@@ -62,6 +62,10 @@ defmodule App.Content.Item do
     |> unique_constraint(:slug)
   end
 
+  def approved_by_section_query(nil) do
+    from(i in __MODULE__, where: i.is_approved)
+  end
+
   def approved_by_section_query(section_id) do
     from(i in __MODULE__,
       where: i.section_id == ^section_id and i.is_approved

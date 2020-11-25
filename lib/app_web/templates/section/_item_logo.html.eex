@@ -1,0 +1,9 @@
+<%= if @item.logo && String.ends_with?(@item.logo.file_name, ".svg") do %>
+<img src="<%= logo_url(@item, :original) %>" alt="<%= @item.name %> logo" width="<%= @width %>" height="<%= @height %>">
+<% else %>
+<picture>
+  <source type="image/webp" srcset="<%= logo_url(@item, :thumb_webp) %>">
+  <source type="image/png" srcset="<%= logo_url(@item, :thumb) %>">
+  <img src="<%= logo_url(@item, :thumb) %>" alt="<%= @item.name %> logo" width="<%= @width %>" height="<%= @height %>">
+</picture>
+<% end %>

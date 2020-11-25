@@ -1,6 +1,6 @@
 <header class="bg-white border-b-2 border-gray-200">
-  <nav class="flex items-center justify-between px-4 py-4 mx-auto lg:px-8 max-w-7xl">
-    <%= unless is_nil(@section) do %>
+  <nav class="flex items-center justify-end px-4 py-4 mx-auto md:px-8 max-w-7xl">
+    <% unless is_nil(@section) do %>
       <div x-data="{ isOpen: false }" class="relative inline-block h-10 text-left">
         <div>
           <span class="inline-flex rounded-md shadow-sm">
@@ -39,7 +39,7 @@
         >
           <div class="bg-white rounded-md shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             <div class="py-1">
-              <%= link to: Routes.section_path(@conn, :show, "english"), class: "flex items-center px-4 py-2 text-sm leading-5 text-gray-700 group hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900", role: "menuitem" do %>
+              <%= link to: Routes.home_path(@conn, :index), class: "flex items-center px-4 py-2 text-sm leading-5 text-gray-700 group hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900", role: "menuitem" do %>
                 <!-- Heroicon name: home -->
                 <svg class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path

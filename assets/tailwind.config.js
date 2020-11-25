@@ -9,6 +9,10 @@ module.exports = {
       },
       colors: {
         'light-blue': colors.lightBlue
+      },
+      gridTemplateColumns: {
+        'repeat-40': 'repeat(auto-fit, 10rem)',
+        'repeat-48': 'repeat(auto-fit, 12rem)'
       }
     },
     truncate: {

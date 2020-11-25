@@ -55,6 +55,12 @@ defmodule App.Content do
     Repo.all(Section)
   end
 
+  def sections_for_homepage do
+    Section
+    |> Section.with_items_count()
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single section.
 
@@ -71,5 +77,6 @@ defmodule App.Content do
   """
   def get_section(id), do: Repo.get(Section, id)
 
+  def get_section_by_slug("all"), do: %Section{slug: "all"}
   def get_section_by_slug(slug), do: Repo.get_by(Section, slug: slug)
 end
