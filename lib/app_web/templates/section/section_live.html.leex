@@ -1,10 +1,12 @@
 <div class="px-4 pt-12 mx-auto mb-20 max-w-7xl lg:px-8">
   <div>
-    <p class="mb-3 text-xl font-bold text-blue-600">Sharpen Your Skill</p>
+    <p class="mb-3 text-xl font-bold text-blue-600">
+      <%= link "Sharpen Your Skill", to: Routes.home_path(@socket, :index) %>
+    </p>
     <h1 class="mb-3 text-4xl font-extrabold leading-tight text-gray-800 md:mb-5 md:text-5xl">
-      <%= "Best #{if is_nil(@category), do: "Resources", else: @category.name} to learn #{@section.name}" %>
+      <%= "Best #{if is_nil(@category), do: "Resources", else: @category.name} #{@section.id && "to Learn " <> @section.name}" %>
     </h1>
-    <p class="mb-10 text-2xl leading-7 text-gray-700"><%= @section.summary %></p>
+    <p class="mb-10 text-xl leading-7 text-gray-700 md:text-2xl"><%= @section.summary %></p>
   </div>
 
   <div class="flex flex-col justify-between w-full">

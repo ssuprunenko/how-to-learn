@@ -19,21 +19,19 @@ defmodule AppWeb.SectionLiveTest do
       assert html =~ section.name
     end
 
-    test "invalid section", %{conn: conn, section: section} do
+    test "invalid section", %{conn: conn} do
       conn = get(conn, Routes.live_path(conn, SectionLive, "test"))
 
-      assert redirected_params(conn).section_slug == section.slug
-      assert redirected_to(conn) == Routes.live_path(conn, SectionLive, section.slug)
+      assert redirected_to(conn, 302) == "/"
     end
 
-    test "invalid category", %{conn: conn, section: section} do
+    test "invalid category", %{conn: conn} do
       conn = get(conn, Routes.live_path(conn, SectionLive, "test", "test"))
 
       params = redirected_params(conn)
 
-      assert params.section_slug == section.slug
       refute Map.get(params, :category_slug)
-      assert redirected_to(conn) == Routes.live_path(conn, SectionLive, section.slug)
+      assert redirected_to(conn, 302) == "/"
     end
   end
 
@@ -50,7 +48,7 @@ defmodule AppWeb.SectionLiveTest do
         live(conn, Routes.live_path(conn, SectionLive, section.slug, category.slug))
 
       assert_html html do
-        assert_html("h1", text: "Best #{category.name} to learn #{section.name}")
+        assert_html("h1", text: "Best #{category.name} to Learn #{section.name}")
         refute_html("h2")
       end
     end
@@ -70,7 +68,7 @@ defmodule AppWeb.SectionLiveTest do
         live(conn, Routes.live_path(conn, SectionLive, section.slug, category.slug))
 
       assert_html html do
-        assert_html("h1", text: "Best #{category.name} to learn #{section.name}")
+        assert_html("h1", text: "Best #{category.name} to Learn #{section.name}")
         assert_html("h2", count: 3)
         assert html =~ "All (5)"
         assert html =~ "#{category.name} (3)"
