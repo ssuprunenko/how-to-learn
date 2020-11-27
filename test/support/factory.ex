@@ -1,8 +1,8 @@
 defmodule App.Factory do
   use ExMachina.Ecto, repo: App.Repo
 
-  def section_factory do
-    %App.Content.Section{
+  def skill_factory do
+    %App.Content.Skill{
       name: Faker.StarWars.planet(),
       slug: Faker.Internet.slug(),
       summary: Faker.StarWars.quote()
@@ -26,7 +26,7 @@ defmodule App.Factory do
       has_trial: true,
       likes: Enum.random(1..1_000),
       is_approved: true,
-      section: build(:section)
+      skill: build(:skill)
     }
   end
 

@@ -21,8 +21,8 @@ defmodule AppWeb.Router do
     plug :admin_basic_auth
   end
 
-  pipeline :require_section do
-    plug AppWeb.Plugs.SetSection
+  pipeline :require_skill do
+    plug AppWeb.Plugs.SetSkill
   end
 
   pipeline :require_item do
@@ -33,7 +33,7 @@ defmodule AppWeb.Router do
   #
   # If you want to use the LiveDashboard in production, you should put
   # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
+  # If your application does not have an admins-only skill yet,
   # you can use Plug.BasicAuth to set up some basic authentication
   # as long as you are also using SSL (which you should anyway).
   if Mix.env() in [:prod, :dev, :test] do
@@ -90,12 +90,12 @@ defmodule AppWeb.Router do
   end
 
   scope "/", AppWeb do
-    pipe_through [:browser, :require_section]
+    pipe_through [:browser, :require_skill]
 
-    get "/home/:section_slug", SectionController, :show
+    get "/home/:skill_slug", SkillController, :show
 
-    live "/:section_slug/:category_slug", SectionLive
-    live "/:section_slug", SectionLive
+    live "/:skill_slug/:category_slug", SkillLive
+    live "/:skill_slug", SkillLive
   end
 
   # Other scopes may use custom stacks.

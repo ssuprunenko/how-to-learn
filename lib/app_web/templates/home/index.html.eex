@@ -9,7 +9,7 @@
   <section class="pb-16 mt-12 bg-light-blue-50 md:pb-20">
     <div class="grid justify-center max-w-4xl gap-4 px-6 mx-auto text-gray-900 md:px-8 grid-cols-repeat-40 md:grid-cols-repeat-48">
       <%= for skill <- @skills do %>
-        <%= link to: Routes.live_path(@conn, AppWeb.SectionLive, skill.slug), class: "col-span-1 flex flex-col items-center justify-end w-40 md:w-48 p-4 border border-gray-300 rounded-md h-60" do %>
+        <%= link to: Routes.live_path(@conn, AppWeb.SkillLive, skill.slug), class: "col-span-1 flex flex-col items-center justify-end w-40 md:w-48 p-4 border border-gray-300 rounded-md h-60" do %>
           <div class="text-lg font-semibold"><%= skill.name %></div>
           <div class="text-sm"><%= skill.items_count %> resources</div>
         <% end %>
@@ -18,7 +18,7 @@
   </section>
 
   <section class="py-16 bg-white md:py-20">
-    <div class="max-w-3xl px-6 mx-auto space-y-16 md:px-8">
+    <div class="max-w-3xl px-6 mx-auto space-y-10 md:space-y-14 md:px-8">
       <%= for category <- @categories do %>
         <div class="">
           <div class="flex items-center justify-between py-4">
@@ -26,8 +26,8 @@
               <%= category.name %>
             </h2>
             <div class="">
-              <%= link to: Routes.live_path(@conn, AppWeb.SectionLive, "all", category.slug), class: "text-base font-medium leading-none text-gray-700 hover:text-light-blue-600 p-2 underline" do %>
-                Browse All (<%= category.items_count %>)<span class="inline-block ml-1 font-normal transition-transform transform duration-350 hover:translate-x-2 text-light-blue-600">--></span>
+              <%= link to: Routes.live_path(@conn, AppWeb.SkillLive, "all", category.slug), class: "text-base font-medium leading-none text-gray-700 hover:text-light-blue-600 py-2 px-3" do %>
+                Browse All (<%= category.items_count %>)<span class="inline-block ml-1 font-normal transition-transform transform duration-350 hover:translate-x-3 text-light-blue-600">--></span>
               <% end %>
             </div>
           </div>
@@ -38,7 +38,7 @@
               <div class="flex flex-col">
                 <div class="flex items-center overflow-hidden rounded-md">
                   <div style="padding-bottom: 100%;"></div>
-                  <%= render SectionView, "_item_logo.html", item: item, width: 256, height: 256 %>
+                  <%= render SkillView, "_item_logo.html", item: item, width: 256, height: 256 %>
                 </div>
                 <div class="mt-3 overflow-x-hidden text-base font-medium leading-tight text-gray-700 truncate-2-lines overflow-ellipsis"><%= item.name %></div>
               </div>

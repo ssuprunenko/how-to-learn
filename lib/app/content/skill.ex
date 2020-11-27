@@ -1,4 +1,4 @@
-defmodule App.Content.Section do
+defmodule App.Content.Skill do
   use Ecto.Schema
   import Ecto.Changeset
   import Ecto.Query
@@ -6,7 +6,7 @@ defmodule App.Content.Section do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "sections" do
+  schema "skills" do
     field :name, :string
     field :slug, :string
     field :summary, :string
@@ -21,29 +21,29 @@ defmodule App.Content.Section do
   end
 
   @doc false
-  def changeset(section, attrs) do
-    section
+  def changeset(skill, attrs) do
+    skill
     |> cast(attrs, [:name, :slug, :summary])
     |> validate_required([:name, :slug])
     |> unique_constraint(:slug)
   end
 
-  def with_latest_items(%__MODULE__{id: id} = section, limit) do
+  def with_latest_items(%__MODULE__{id: id} = skill, limit) do
     items =
       id
-      |> Item.approved_by_section_query()
+      |> Item.approved_by_skill_query()
       |> Item.latest(limit)
 
-    Map.put(section, :latest_items, items)
+    Map.put(skill, :latest_items, items)
   end
 
-  def with_items_count(%__MODULE__{id: id} = section) do
+  def with_items_count(%__MODULE__{id: id} = skill) do
     count =
       id
-      |> Item.approved_by_section_query()
+      |> Item.approved_by_skill_query()
       |> Item.count()
 
-    Map.put(section, :items_count, count)
+    Map.put(skill, :items_count, count)
   end
 
   def with_items_count(query) do
@@ -55,16 +55,16 @@ defmodule App.Content.Section do
     )
   end
 
-  def with_top_items(%__MODULE__{id: id} = section, limit, range \\ :month) do
+  def with_top_items(%__MODULE__{id: id} = skill, limit, range \\ :month) do
     start_date = calculate_start_date(range)
 
     items =
       id
-      |> Item.approved_by_section_query()
+      |> Item.approved_by_skill_query()
       |> Item.sort_by_query(:top, limit)
       |> Item.created_since_date(start_date)
 
-    Map.put(section, :top_items, items)
+    Map.put(skill, :top_items, items)
   end
 
   defp calculate_start_date(:month) do

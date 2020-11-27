@@ -1,6 +1,6 @@
 <header class="bg-white border-b-2 border-gray-200">
   <nav class="flex items-center justify-end px-4 py-4 mx-auto md:px-8 max-w-7xl">
-    <% unless is_nil(@section) do %>
+    <% unless is_nil(@skill) do %>
       <div x-data="{ isOpen: false }" class="relative inline-block h-10 text-left">
         <div>
           <span class="inline-flex rounded-md shadow-sm">
@@ -16,7 +16,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
-              <%= @section.name %>
+              <%= @skill.name %>
               <!-- Heroicon name: chevron-down -->
               <svg class="w-5 h-5 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -51,7 +51,7 @@
 
             <div class="border-t border-gray-100"></div>
             <div class="py-1">
-              <%= link to: Routes.live_path(@conn, AppWeb.SectionLive, "english"), class: "flex items-center px-4 py-2 text-sm leading-5 text-gray-700 group hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900", role: "menuitem" do %>
+              <%= link to: Routes.live_path(@conn, AppWeb.SkillLive, "english"), class: "flex items-center px-4 py-2 text-sm leading-5 text-gray-700 group hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900", role: "menuitem" do %>
                 <!-- Heroicon name: globe-alt -->
                 <svg class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500"
                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -62,7 +62,7 @@
                 English
               <% end %>
 
-              <%= link to: Routes.live_path(@conn, AppWeb.SectionLive, "french"), class: "flex items-center px-4 py-2 text-sm leading-5 text-gray-700 group hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900", role: "menuitem" do %>
+              <%= link to: Routes.live_path(@conn, AppWeb.SkillLive, "french"), class: "flex items-center px-4 py-2 text-sm leading-5 text-gray-700 group hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900", role: "menuitem" do %>
                 <!-- Heroicon name: sparkles -->
                 <svg class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd"
@@ -75,7 +75,7 @@
 
             <div class="border-t border-gray-100"></div>
             <div class="py-1">
-              <%= link to: Routes.live_path(@conn, AppWeb.SectionLive, "python"), class: "flex items-center px-4 py-2 text-sm leading-5 text-gray-700 group hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900", role: "menuitem" do %>
+              <%= link to: Routes.live_path(@conn, AppWeb.SkillLive, "python"), class: "flex items-center px-4 py-2 text-sm leading-5 text-gray-700 group hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900", role: "menuitem" do %>
                 <!-- Heroicon name: chip -->
                 <svg class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M13 7H7v6h6V7z" />

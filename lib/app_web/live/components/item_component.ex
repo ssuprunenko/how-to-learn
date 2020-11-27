@@ -1,13 +1,13 @@
 defmodule AppWeb.ItemComponent do
   use AppWeb, :live_component
   alias App.Content.Items
-  alias AppWeb.SectionView
+  alias AppWeb.SkillView
 
   def mount(socket) do
     {:ok, socket}
   end
 
-  def render(assigns), do: SectionView.render("item_component.html", assigns)
+  def render(assigns), do: SkillView.render("item_component.html", assigns)
 
   def handle_event("like", _params, %{assigns: %{item: item, user_id: user_id}} = socket)
       when is_binary(user_id) do

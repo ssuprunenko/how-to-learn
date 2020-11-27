@@ -17,20 +17,20 @@ defmodule App.ContentTest do
     end
   end
 
-  describe "sections" do
-    test "list_sections/0 returns all sections" do
-      section = insert(:section)
-      assert Content.list_sections() == [section]
+  describe "skills" do
+    test "list_skills/0 returns all skills" do
+      skill = insert(:skill)
+      assert Content.list_skills() == [skill]
     end
 
-    test "get_section/1 returns the section with given id" do
-      section = insert(:section)
-      assert Content.get_section(section.id) == section
+    test "get_skill/1 returns the skill with given id" do
+      skill = insert(:skill)
+      assert Content.get_skill(skill.id) == skill
     end
 
-    test "get_section_by_slug/1 returns the section with given id" do
-      section = insert(:section)
-      assert Content.get_section_by_slug(section.slug) == section
+    test "get_skill_by_slug/1 returns the skill with given id" do
+      skill = insert(:skill)
+      assert Content.get_skill_by_slug(skill.slug) == skill
     end
   end
 

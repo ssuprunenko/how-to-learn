@@ -1,18 +1,18 @@
-defmodule AppWeb.Plugs.SetSection do
+defmodule AppWeb.Plugs.SetSkill do
   import Plug.Conn
   alias App.Content
 
   def init(opts), do: opts
 
-  def call(%Plug.Conn{params: %{"section_slug" => "all"}} = conn, _opts), do: conn
+  def call(%Plug.Conn{params: %{"skill_slug" => "all"}} = conn, _opts), do: conn
 
-  def call(%Plug.Conn{params: %{"section_slug" => slug}} = conn, _opts) do
-    case Content.get_section_by_slug(slug) do
+  def call(%Plug.Conn{params: %{"skill_slug" => slug}} = conn, _opts) do
+    case Content.get_skill_by_slug(slug) do
       nil ->
         redirect_to_default(conn)
 
-      section ->
-        assign(conn, :section, section)
+      skill ->
+        assign(conn, :skill, skill)
     end
   end
 

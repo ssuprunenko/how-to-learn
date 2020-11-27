@@ -27,9 +27,9 @@ defmodule App.Content.Category do
     |> unique_constraint(:slug)
   end
 
-  def with_top_items(section_id, limit) do
-    section_id
-    |> Item.approved_by_section_query()
+  def with_top_items(skill_id, limit) do
+    skill_id
+    |> Item.approved_by_skill_query()
     |> Item.with_category_query()
     |> Repo.all()
     |> Enum.group_by(& &1.category)

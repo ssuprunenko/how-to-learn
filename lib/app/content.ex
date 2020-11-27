@@ -4,7 +4,7 @@ defmodule App.Content do
   """
 
   import Ecto.Query, warn: false
-  alias App.Content.{Category, Section}
+  alias App.Content.{Category, Skill}
   alias App.Repo
 
   @doc """
@@ -43,40 +43,40 @@ defmodule App.Content do
   end
 
   @doc """
-  Returns the list of sections.
+  Returns the list of skills.
 
   ## Examples
 
-      iex> list_sections()
-      [%Section{}, ...]
+      iex> list_skills()
+      [%Skill{}, ...]
 
   """
-  def list_sections do
-    Repo.all(Section)
+  def list_skills do
+    Repo.all(Skill)
   end
 
-  def sections_for_homepage do
-    Section
-    |> Section.with_items_count()
+  def skills_for_homepage do
+    Skill
+    |> Skill.with_items_count()
     |> Repo.all()
   end
 
   @doc """
-  Gets a single section.
+  Gets a single skill.
 
-  Return nil if the Section does not exist.
+  Return nil if the Skill does not exist.
 
   ## Examples
 
-      iex> get_section(123)
-      %Section{}
+      iex> get_skill(123)
+      %Skill{}
 
-      iex> get_section(456)
+      iex> get_skill(456)
       nil
 
   """
-  def get_section(id), do: Repo.get(Section, id)
+  def get_skill(id), do: Repo.get(Skill, id)
 
-  def get_section_by_slug("all"), do: %Section{slug: "all"}
-  def get_section_by_slug(slug), do: Repo.get_by(Section, slug: slug)
+  def get_skill_by_slug("all"), do: %Skill{slug: "all"}
+  def get_skill_by_slug(slug), do: Repo.get_by(Skill, slug: slug)
 end

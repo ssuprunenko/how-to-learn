@@ -1,11 +1,11 @@
 <div class="max-w-full mt-10 text-center">
-  <h1 class="text-3xl"><%= @section.name %></h1>
-  <p><%= @section.summary %></p>
+  <h1 class="text-3xl"><%= @skill.name %></h1>
+  <p><%= @skill.summary %></p>
 
   <div class="mt-16">
     <h2 class="text-2xl">Popular this month</h2>
     <div class="grid max-w-5xl grid-cols-1 gap-6 m-auto sm:grid-cols-2 lg:grid-cols-3">
-      <%= for item <- @section.top_items do %>
+      <%= for item <- @skill.top_items do %>
       <div class="p-4 text-left">
         <h3 class="mb-2 text-lg font-semibold text-center"><%= item.name %></h3>
         <p><%= raw(item.summary) %></p>
@@ -18,7 +18,7 @@
   <div class="mt-16">
     <h2 class="text-2xl">What's new</h2>
     <div class="grid max-w-5xl grid-cols-1 gap-6 m-auto sm:grid-cols-2 lg:grid-cols-3">
-      <%= for item <- @section.latest_items do %>
+      <%= for item <- @skill.latest_items do %>
       <div class="p-4 text-left">
         <h3 class="mb-2 text-lg font-semibold text-center"><%= item.name %></h3>
         <%= truncated_info(item) %>
@@ -34,7 +34,7 @@
       <%= for category <- @categories do %>
       <div class="p-4">
         <h3 class="text-lg font-semibold underline">
-          <%= # link category.name, to: Routes.section_live_path(@conn, AppWeb.ItemListLive, @section.slug, category.slug) %>
+          <%= # link category.name, to: Routes.skill_live_path(@conn, AppWeb.ItemListLive, @skill.slug, category.slug) %>
         </h3>
         <p class="mb-4"><%= category.items_count %> items</p>
         <i>Popular in this category</i>

@@ -25,7 +25,7 @@ defmodule AppWeb.Auth.UserSessionControllerTest do
 
   describe "POST /auth/users/log_in" do
     test "logs the user in", %{conn: conn, user: user} do
-      insert(:section, %{name: "English", slug: "english"})
+      insert(:skill, %{name: "English", slug: "english"})
 
       conn =
         post(conn, Routes.auth_user_session_path(conn, :create), %{

@@ -1,4 +1,4 @@
 defmodule AppWeb.HomeView do
   use AppWeb, :view
-  alias AppWeb.SectionView
+  alias AppWeb.SkillView
 end

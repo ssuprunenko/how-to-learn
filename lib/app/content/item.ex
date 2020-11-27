@@ -3,7 +3,7 @@ defmodule App.Content.Item do
   use Waffle.Ecto.Schema
   import Ecto.Changeset
   import Ecto.Query
-  alias App.Content.{Category, CategoryItem, Section}
+  alias App.Content.{Category, CategoryItem, Skill}
   alias App.Repo
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -29,7 +29,7 @@ defmodule App.Content.Item do
     field :category, :map, virtual: true
     field :liked, :boolean, default: false, virtual: true
 
-    belongs_to :section, Section
+    belongs_to :skill, Skill
 
     many_to_many :categories,
                  Category,
@@ -53,22 +53,22 @@ defmodule App.Content.Item do
       :license,
       :has_trial,
       :likes,
-      :section_id,
+      :skill_id,
       :is_approved,
       :inserted_at
     ])
     |> cast_attachments(attrs, [:logo], allow_urls: true, allow_paths: true)
-    |> validate_required([:name, :slug, :url, :section_id])
+    |> validate_required([:name, :slug, :url, :skill_id])
     |> unique_constraint(:slug)
   end
 
-  def approved_by_section_query(nil) do
+  def approved_by_skill_query(nil) do
     from(i in __MODULE__, where: i.is_approved)
   end
 
-  def approved_by_section_query(section_id) do
+  def approved_by_skill_query(skill_id) do
     from(i in __MODULE__,
-      where: i.section_id == ^section_id and i.is_approved
+      where: i.skill_id == ^skill_id and i.is_approved
     )
   end
 

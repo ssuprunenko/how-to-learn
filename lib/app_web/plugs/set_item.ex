@@ -19,7 +19,7 @@ defmodule AppWeb.Plugs.SetItem do
   def redirect_to_default(conn) do
     conn
     |> Phoenix.Controller.redirect(
-      to: AppWeb.Router.Helpers.live_path(conn, AppWeb.SectionLive, "english")
+      to: AppWeb.Router.Helpers.live_path(conn, AppWeb.SkillLive, "english")
     )
     |> halt()
   end
