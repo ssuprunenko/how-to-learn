@@ -1,13 +1,13 @@
 <div class="">
-  <section class="max-w-4xl py-16 mx-auto text-center md:py-20">
-    <div class="px-4 md:px-8">
-      <h1 class="mb-3 text-4xl font-extrabold leading-none tracking-tight text-gray-800 md:mb-5 md:text-5xl">Explore the curated collections of learning resources</h1>
-      <p class="text-xl leading-7 text-gray-700 md:text-2xl">Subtitle</p>
+  <section class="max-w-4xl pt-16 mx-auto md:text-center md:pt-20">
+    <div class="px-6 md:px-8">
+      <h1 class="mb-6 text-4xl font-bold leading-10 tracking-tight text-gray-800 md:font-extrabold md:mb-5 md:text-5xl">Curated collections of learning resources</h1>
+      <p class="text-lg leading-7 text-gray-900 md:text-2xl">Explore them all...</p>
     </div>
   </section>
 
-  <section class="py-16 bg-white md:py-20">
-    <div class="grid justify-center max-w-4xl gap-4 px-4 mx-auto text-gray-900 md:px-8 grid-cols-repeat-40 md:grid-cols-repeat-48">
+  <section class="pb-16 mt-12 bg-light-blue-50 md:pb-20">
+    <div class="grid justify-center max-w-4xl gap-4 px-6 mx-auto text-gray-900 md:px-8 grid-cols-repeat-40 md:grid-cols-repeat-48">
       <%= for skill <- @skills do %>
         <%= link to: Routes.live_path(@conn, AppWeb.SectionLive, skill.slug), class: "col-span-1 flex flex-col items-center justify-end w-40 md:w-48 p-4 border border-gray-300 rounded-md h-60" do %>
           <div class="text-lg font-semibold"><%= skill.name %></div>
@@ -18,28 +18,33 @@
   </section>
 
   <section class="py-16 bg-white md:py-20">
-    <div class="max-w-4xl px-4 mx-auto space-y-10 md:px-8">
+    <div class="max-w-3xl px-6 mx-auto space-y-16 md:px-8">
       <%= for category <- @categories do %>
-        <%= link to: Routes.live_path(@conn, AppWeb.SectionLive, "all", category.slug), class: "block border overflow-hidden shadow rounded-lg" do %>
-          <div class="flex items-baseline justify-between px-4 py-5 sm:px-6">
-            <h2 class="inline text-xl font-semibold leading-none text-gray-900 hover:text-light-blue-600">
+        <div class="">
+          <div class="flex items-center justify-between py-4">
+            <h2 class="text-2xl font-semibold leading-none text-gray-900">
               <%= category.name %>
             </h2>
-            <div class="text-base leading-none text-gray-700 hover:text-light-blue-600">See all <%= category.items_count %> resources <span class="text-light-blue-600">--></span></div>
+            <div class="">
+              <%= link to: Routes.live_path(@conn, AppWeb.SectionLive, "all", category.slug), class: "text-base font-medium leading-none text-gray-700 hover:text-light-blue-600 p-2 underline" do %>
+                Browse All (<%= category.items_count %>)<span class="inline-block ml-1 font-normal transition-transform transform duration-350 hover:translate-x-2 text-light-blue-600">--></span>
+              <% end %>
+            </div>
           </div>
-          <div class="flex flex-wrap items-center justify-center gap-3 pt-5 sm:pt-6 sm:justify-start">
+
+          <!-- Items Grid -->
+          <div class="grid grid-cols-2 pt-2 gap-y-4 gap-x-8 sm:grid-cols-3 md:grid-cols-4">
             <%= for item <- category.items do %>
-              <div class="flex flex-col items-center mb-2 rounded-md h-52 w-44">
-                <div class="flex items-center w-32 h-32">
+              <div class="flex flex-col">
+                <div class="flex items-center overflow-hidden rounded-md">
+                  <div style="padding-bottom: 100%;"></div>
                   <%= render SectionView, "_item_logo.html", item: item, width: 256, height: 256 %>
                 </div>
-                <div class="mt-2 text-base font-medium leading-tight text-center text-gray-700">
-                  <%= item.name %>
-                </div>
+                <div class="mt-3 overflow-x-hidden text-base font-medium leading-tight text-gray-700 truncate-2-lines overflow-ellipsis"><%= item.name %></div>
               </div>
             <% end %>
           </div>
-        <% end %>
+        </div>
       <% end %>
     </div>
   </section>
