@@ -1,5 +1,6 @@
 defmodule App.Content.Skill do
   use Ecto.Schema
+  use Waffle.Ecto.Schema
   import Ecto.Changeset
   import Ecto.Query
   alias App.Content.Item
@@ -10,6 +11,7 @@ defmodule App.Content.Skill do
     field :name, :string
     field :slug, :string
     field :summary, :string
+    field :logo, App.Uploaders.Logo.Type
 
     field :items_count, :integer, virtual: true, default: 0
 
@@ -24,6 +26,7 @@ defmodule App.Content.Skill do
   def changeset(skill, attrs) do
     skill
     |> cast(attrs, [:name, :slug, :summary])
+    |> cast_attachments(attrs, [:logo], allow_urls: true, allow_paths: true)
     |> validate_required([:name, :slug])
     |> unique_constraint(:slug)
   end
@@ -51,7 +54,7 @@ defmodule App.Content.Skill do
       left_join: i in assoc(s, :items),
       on: i.is_approved,
       group_by: s.id,
-      select: %{id: s.id, slug: s.slug, name: s.name, items_count: count(i.id)}
+      select_merge: %{items_count: count(i.id)}
     )
   end
 

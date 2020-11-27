@@ -3,7 +3,7 @@ defmodule App.Admin.Config do
     [
       content: [
         resources: [
-          skill: [schema: App.Content.Skill],
+          skill: [schema: App.Content.Skill, admin: App.Admin.SkillAdmin],
           category: [schema: App.Content.Category, admin: App.Admin.CategoryAdmin],
           item: [schema: App.Content.Item, admin: App.Admin.ItemAdmin],
           category_item: [

@@ -3,8 +3,8 @@ defmodule AppWeb.SkillLiveTest do
   use AssertHTML
   import App.Factory
   import Phoenix.LiveViewTest
-  alias AppWeb.SkillLive
   alias App.Content.Items
+  alias AppWeb.SkillLive
 
   describe "skill with no selected categories" do
     setup %{conn: conn} do
