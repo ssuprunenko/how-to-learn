@@ -121,6 +121,10 @@ defmodule App.Content.Item do
     )
   end
 
+  def with_preloaded_skill(query) do
+    from(i in query, preload: :skill)
+  end
+
   def count(query) do
     from(i in query,
       select: count(i.id)

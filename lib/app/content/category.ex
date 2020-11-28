@@ -31,6 +31,7 @@ defmodule App.Content.Category do
     skill_id
     |> Item.approved_by_skill_query()
     |> Item.with_category_query()
+    |> Item.with_preloaded_skill()
     |> Repo.all()
     |> Enum.group_by(& &1.category)
     |> Enum.map(fn {category, items} ->
