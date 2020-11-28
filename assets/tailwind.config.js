@@ -1,5 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   theme: {
@@ -22,11 +23,27 @@ module.exports = {
       }
     }
   },
+  variants: {
+    extend: {
+      padding: ['after']
+    }
+  },
   plugins: [
+    require('tailwindcss-pseudo-elements'),
     require('tailwindcss-truncate-multiline')(),
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio')
+    require('@tailwindcss/aspect-ratio'),
+    plugin(function ({ addUtilities }) {
+      addUtilities(
+        {
+          '.empty-content': {
+            content: "''"
+          },
+        },
+        ['after']
+      )
+    })
   ],
   future: {
     removeDeprecatedGapUtilities: true,

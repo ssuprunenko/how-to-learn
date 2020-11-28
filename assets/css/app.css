@@ -5,3 +5,9 @@
 [x-cloak] {
   display: none;
 }
+
+@media (min-width: 768px) {
+  .md-after-none::after {
+    content: none;
+  }
+}

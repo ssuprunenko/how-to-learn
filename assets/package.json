@@ -16,6 +16,7 @@
     "phoenix_live_view": "file:../deps/phoenix_live_view",
     "postcss-loader": "^4.1.0",
     "tailwindcss": "^2.0.1",
+    "tailwindcss-pseudo-elements": "^1.4.1",
     "tailwindcss-truncate-multiline": "^1.0.3"
   },
   "devDependencies": {
