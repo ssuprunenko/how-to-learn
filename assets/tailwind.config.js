@@ -12,7 +12,6 @@ module.exports = {
         'light-blue': colors.lightBlue
       },
       gridTemplateColumns: {
-        'repeat-40': 'repeat(auto-fit, 10rem)',
         'repeat-48': 'repeat(auto-fit, 12rem)'
       }
     },
@@ -25,7 +24,9 @@ module.exports = {
   },
   variants: {
     extend: {
-      padding: ['after']
+      padding: ['after'],
+      scale: ['group-hover'],
+      translate: ['group-hover']
     }
   },
   plugins: [

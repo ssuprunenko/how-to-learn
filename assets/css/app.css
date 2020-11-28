@@ -6,6 +6,12 @@
   display: none;
 }
 
+@media (min-width: 640px) {
+  .sm-after-none::after {
+    content: none;
+  }
+}
+
 @media (min-width: 768px) {
   .md-after-none::after {
     content: none;
