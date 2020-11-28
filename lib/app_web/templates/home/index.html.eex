@@ -7,7 +7,7 @@
   </section>
 
   <section class="pb-16 mt-10 bg-light-blue-50">
-    <div class="flex justify-start gap-4 pt-1 pb-3 pl-6 overflow-x-scroll text-gray-900 md:gap-6 md:grid md:justify-center md:max-w-4xl md:mx-auto md:grid-cols-repeat-48 md:pl-0 after:empty-content md-after-none after:pr-2 md:after:pr-0">
+    <div class="flex justify-start pt-1 pb-3 pl-6 space-x-4 overflow-x-scroll text-gray-900 md:gap-6 md:grid md:justify-center md:max-w-4xl md:mx-auto md:grid-cols-repeat-48 md:pl-0 after:empty-content md-after-none after:pr-2 md:after:pr-0 no-scrollbar md:space-x-0">
       <%= for skill <- @skills do %>
         <%= link to: Routes.live_path(@conn, AppWeb.SkillLive, skill.slug), class: "min-w-max flex flex-col items-center justify-end p-4 shadow rounded-md h-60 bg-white focus:outline-none focus:ring-2 focus:ring-offset-light-blue-50 ring-offset-2 focus:ring-light-blue-400 group" do %>
           <div class="flex w-32 overflow-hidden transition duration-500 ease-in-out transform group-hover:scale-105 md:w-40">
@@ -35,7 +35,7 @@
           </div>
 
           <!-- Items -->
-          <div class="flex justify-start pb-2 pl-6 overflow-x-scroll md:px-8 sm:overflow-x-visible sm:grid sm:grid-cols-5 gap-y-4 gap-x-3 sm:gap-x-4 sm:pr-6 after:empty-content after:pr-3 sm:after:pr-0 sm-after-none">
+          <div class="flex justify-start pb-2 pl-6 space-x-3 overflow-x-scroll md:px-8 sm:overflow-x-visible sm:grid sm:grid-cols-5 gap-y-4 sm:gap-x-4 sm:pr-6 after:empty-content after:pr-3 sm:after:pr-0 sm-after-none no-scrollbar sm:space-x-0">
             <%= for item <- category.items do %>
               <div class="flex flex-col min-w-max">
                 <div class="flex items-center w-24 mb-3 overflow-hidden transition-shadow ease-in-out rounded-md shadow cursor-pointer sm:w-28 md:w-32 duration-350 hover:shadow-md">
