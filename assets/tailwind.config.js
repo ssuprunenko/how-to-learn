@@ -9,6 +9,7 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans]
       },
       colors: {
+        'blue-gray': colors.blueGray,
         'light-blue': colors.lightBlue
       },
       gridTemplateColumns: {
