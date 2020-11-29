@@ -1,9 +1,44 @@
 <div class="px-4 pt-12 mx-auto mb-20 max-w-7xl lg:px-8">
   <div>
-    <p class="mb-3 text-xl font-bold text-blue-600">
-      <%= link "Sharpen Your Skill", to: Routes.home_path(@socket, :index) %>
-    </p>
-    <h1 class="mb-3 text-4xl font-extrabold leading-tight text-gray-800 md:mb-5 md:text-5xl">
+    <nav class="flex mb-8" aria-label="Breadcrumb">
+      <ol class="flex items-center space-x-2 text-sm leading-5 text-gray-700">
+        <li>
+          <div>
+            <%= link to: Routes.home_path(@socket, :index), class: "" do %>
+              <!-- Heroicon name: home -->
+              <svg class="flex-shrink-0 w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+              </svg>
+              <span class="sr-only">Home</span>
+            <% end %>
+          </div>
+        </li>
+        <%= if @skill.id do %>
+          <li>
+            <div class="flex items-center">
+              <!-- Heroicon name: chevron-right -->
+              <svg class="flex-shrink-0 w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
+              <%= live_patch @skill.name, to: Routes.live_path(@socket, AppWeb.SkillLive, @skill.slug), class: "ml-2 border-b border-gray-400" %>
+            </div>
+          </li>
+        <% end %>
+        <%= if @category do %>
+          <li>
+            <div class="flex items-center">
+              <!-- Heroicon name: chevron-right -->
+              <svg class="flex-shrink-0 w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
+              <%= live_patch @category.name, to: Routes.live_path(@socket, AppWeb.SkillLive, @skill.slug, @category.slug), class: "ml-2 border-b border-gray-400" %>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+    </nav>
+
+    <h1 class="mb-4 text-4xl font-extrabold leading-tight text-gray-800 md:text-5xl">
       <%= "Best #{if is_nil(@category), do: "Resources", else: @category.name} #{@skill.id && "to Learn " <> @skill.name}" %>
     </h1>
     <p class="mb-10 text-xl leading-7 text-gray-700 md:text-2xl"><%= @skill.summary %></p>

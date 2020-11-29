@@ -86,6 +86,7 @@ defmodule AppWeb.Router do
   scope "/r", AppWeb do
     pipe_through [:browser, :require_item]
 
+    get "/:slug", ItemController, :show
     get "/:slug/away", ItemController, :away, as: :item_away
   end
 
