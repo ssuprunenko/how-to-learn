@@ -1,32 +1,32 @@
-defmodule AppWeb.SectionLive do
+defmodule AppWeb.SkillLive do
   use AppWeb, :live_view
 
   alias App.Content
-  alias App.Content.{Category, Items, Section}
-  alias AppWeb.SectionView
+  alias App.Content.{Category, Items, Skill}
+  alias AppWeb.SkillView
 
   def mount(params, %{"user_id" => user_id}, socket) do
-    section =
-      params["section_slug"]
-      |> Content.get_section_by_slug()
-      |> Section.with_latest_items(3)
-      |> Section.with_top_items(3, :year)
-      |> Section.with_items_count()
+    skill =
+      params["skill_slug"]
+      |> Content.get_skill_by_slug()
+      |> Skill.with_latest_items(3)
+      |> Skill.with_top_items(3, :year)
+      |> Skill.with_items_count()
 
-    categories = Category.with_top_items(section.id, 3)
+    categories = Category.with_top_items(skill.id, 3)
 
-    {:ok, assign(socket, section: section, categories: categories, user_id: user_id)}
+    {:ok, assign(socket, skill: skill, categories: categories, user_id: user_id)}
   end
 
-  def render(assigns), do: SectionView.render("section_live.html", assigns)
+  def render(assigns), do: SkillView.render("skill_live.html", assigns)
 
   def handle_params(params, _url, socket) do
-    section = socket.assigns.section
+    skill = socket.assigns.skill
     category = Content.get_category_by_slug(params["category_slug"])
     sort_by = if String.to_atom(params["sort"] || "top") == :top, do: :top, else: :new
 
     items =
-      section
+      skill
       |> Items.list_items(category, sort_by)
       |> Items.mark_installed(socket.assigns.user_id)
 
@@ -39,7 +39,7 @@ defmodule AppWeb.SectionLive do
     #         Routes.live_path(
     #           socket,
     #           __MODULE__,
-    #           section.slug
+    #           skill.slug
     #         )
     #     )
     #   else

@@ -16,16 +16,16 @@ defmodule App.Content.Items do
     Repo.all(Item)
   end
 
-  def list_items(section, nil, sort_by) do
-    section.id
-    |> Item.approved_by_section_query()
+  def list_items(skill, nil, sort_by) do
+    skill.id
+    |> Item.approved_by_skill_query()
     |> Item.sort_by_query(sort_by, 20)
     |> Repo.all()
   end
 
-  def list_items(section, category, sort_by) do
-    section.id
-    |> Item.approved_by_section_query()
+  def list_items(skill, category, sort_by) do
+    skill.id
+    |> Item.approved_by_skill_query()
     |> Item.with_category_query()
     |> Item.sort_by_query(sort_by, 20)
     |> Repo.all()

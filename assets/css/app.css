@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-[x-cloak] {
+[x-cloak], [hidden] {
   display: none;
+}
+
+@media (min-width: 640px) {
+  .sm-after-none::after {
+    content: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .md-after-none::after {
+    content: none;
+  }
+}
+
+/* https://github.com/tailwindlabs/tailwindcss/discussions/2394 */
+/* Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

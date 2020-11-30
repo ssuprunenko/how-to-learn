@@ -15,8 +15,8 @@ defmodule App.Admin.ItemAdmin do
       categories: %{
         value: fn item -> categories(item) end
       },
-      section: %{
-        value: fn item -> Content.get_section(item.section_id).name end
+      skill: %{
+        value: fn item -> Content.get_skill(item.skill_id).name end
       },
       is_approved: %{
         filters: [{true, true}, {false, false}]
@@ -49,7 +49,7 @@ defmodule App.Admin.ItemAdmin do
       license: %{choices: license_values()},
       has_trial: nil,
       likes: nil,
-      section_id: nil,
+      skill_id: nil,
       is_approved: nil,
       inserted_at: nil
     ]

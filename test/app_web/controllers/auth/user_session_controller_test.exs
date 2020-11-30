@@ -25,7 +25,7 @@ defmodule AppWeb.Auth.UserSessionControllerTest do
 
   describe "POST /auth/users/log_in" do
     test "logs the user in", %{conn: conn, user: user} do
-      insert(:section, %{name: "English", slug: "english"})
+      insert(:skill, %{name: "English", slug: "english"})
 
       conn =
         post(conn, Routes.auth_user_session_path(conn, :create), %{
@@ -53,8 +53,22 @@ defmodule AppWeb.Auth.UserSessionControllerTest do
           }
         })
 
-      assert conn.resp_cookies["user_remember_me"]
+      assert conn.resp_cookies["_app_web_user_remember_me"]
       assert redirected_to(conn) =~ "/"
+    end
+
+    test "logs the user in with return to", %{conn: conn, user: user} do
+      conn =
+        conn
+        |> init_test_session(user_return_to: "/foo/bar")
+        |> post(Routes.auth_user_session_path(conn, :create), %{
+          "user" => %{
+            "email" => user.email,
+            "password" => valid_user_password()
+          }
+        })
+
+      assert redirected_to(conn) == "/foo/bar"
     end
 
     test "emits error message with invalid credentials", %{conn: conn, user: user} do

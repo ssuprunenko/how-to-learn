@@ -4,24 +4,24 @@ defmodule App.Content.CategoryTest do
   alias App.Content.Category
 
   setup do
-    section = insert(:section)
+    skill = insert(:skill)
 
-    [section: section]
+    [skill: skill]
   end
 
   describe "with_top_items/2" do
-    test "returns all categories by section with top N items", %{section: section} do
+    test "returns all categories by skill with top N items", %{skill: skill} do
       3
       |> insert_list(:category)
       |> Enum.each(fn category ->
         4
-        |> insert_list(:item, section: section, is_approved: true)
+        |> insert_list(:item, skill: skill, is_approved: true)
         |> Enum.each(fn item ->
           insert(:category_item, category: category, item: item)
         end)
       end)
 
-      categories = Category.with_top_items(section.id, 3)
+      categories = Category.with_top_items(skill.id, 3)
 
       assert length(categories) == 3
       assert Enum.all?(categories, fn cat -> length(cat.items) == 3 end)

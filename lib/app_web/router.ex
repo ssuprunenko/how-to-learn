@@ -21,8 +21,8 @@ defmodule AppWeb.Router do
     plug :admin_basic_auth
   end
 
-  pipeline :require_section do
-    plug AppWeb.Plugs.SetSection
+  pipeline :require_skill do
+    plug AppWeb.Plugs.SetSkill
   end
 
   pipeline :require_item do
@@ -33,7 +33,7 @@ defmodule AppWeb.Router do
   #
   # If you want to use the LiveDashboard in production, you should put
   # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
+  # If your application does not have an admins-only skill yet,
   # you can use Plug.BasicAuth to set up some basic authentication
   # as long as you are also using SSL (which you should anyway).
   if Mix.env() in [:prod, :dev, :test] do
@@ -64,8 +64,7 @@ defmodule AppWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     get "/users/settings", UserSettingsController, :edit
-    put "/users/settings/update_password", UserSettingsController, :update_password
-    put "/users/settings/update_email", UserSettingsController, :update_email
+    put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
@@ -78,21 +77,26 @@ defmodule AppWeb.Router do
     get "/users/confirm/:token", UserConfirmationController, :confirm
   end
 
+  scope "/", AppWeb do
+    pipe_through [:browser]
+
+    get "/", HomeController, :index
+  end
+
   scope "/r", AppWeb do
     pipe_through [:browser, :require_item]
 
+    get "/:slug", ItemController, :show
     get "/:slug/away", ItemController, :away, as: :item_away
   end
 
   scope "/", AppWeb do
-    pipe_through [:browser, :require_section]
+    pipe_through [:browser, :require_skill]
 
-    # live "/", PageLive, :index
-    get "/home/:section_slug", SectionController, :show
+    get "/home/:skill_slug", SkillController, :show
 
-    live "/:section_slug/:category_slug", SectionLive
-    live "/:section_slug", SectionLive
-    live "/", SectionLive
+    live "/:skill_slug/:category_slug", SkillLive
+    live "/:skill_slug", SkillLive
   end
 
   # Other scopes may use custom stacks.

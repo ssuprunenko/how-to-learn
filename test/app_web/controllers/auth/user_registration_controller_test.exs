@@ -14,7 +14,9 @@ defmodule AppWeb.Auth.UserRegistrationControllerTest do
     end
 
     test "redirects if already logged in", %{conn: conn} do
-      conn = conn |> log_in_user(user_fixture()) |> get(Routes.auth_user_registration_path(conn, :new))
+      conn =
+        conn |> log_in_user(user_fixture()) |> get(Routes.auth_user_registration_path(conn, :new))
+
       assert redirected_to(conn) == "/"
     end
   end
@@ -22,7 +24,7 @@ defmodule AppWeb.Auth.UserRegistrationControllerTest do
   describe "POST /auth/users/register" do
     @tag :capture_log
     test "creates account and logs the user in", %{conn: conn} do
-      insert(:section, %{name: "English", slug: "english"})
+      insert(:skill, %{name: "English", slug: "english"})
       email = unique_user_email()
 
       conn =

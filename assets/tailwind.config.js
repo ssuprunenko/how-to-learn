@@ -1,5 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   theme: {
@@ -8,7 +9,11 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans]
       },
       colors: {
+        'blue-gray': colors.blueGray,
         'light-blue': colors.lightBlue
+      },
+      gridTemplateColumns: {
+        'repeat-48': 'repeat(auto-fit, 12rem)'
       }
     },
     truncate: {
@@ -18,11 +23,29 @@ module.exports = {
       }
     }
   },
+  variants: {
+    extend: {
+      padding: ['after'],
+      scale: ['group-hover'],
+      translate: ['group-hover']
+    }
+  },
   plugins: [
+    require('tailwindcss-pseudo-elements'),
     require('tailwindcss-truncate-multiline')(),
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio')
+    require('@tailwindcss/aspect-ratio'),
+    plugin(function ({ addUtilities }) {
+      addUtilities(
+        {
+          '.empty-content': {
+            content: "''"
+          },
+        },
+        ['after']
+      )
+    })
   ],
   future: {
     removeDeprecatedGapUtilities: true,
