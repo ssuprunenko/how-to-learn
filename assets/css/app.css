@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-[x-cloak] {
+[x-cloak], [hidden] {
   display: none;
 }
 
@@ -27,8 +27,4 @@
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-}
-
-iframe[hidden] {
-  @apply hidden;
 }

@@ -32,6 +32,10 @@ defmodule AppWeb.ItemComponent do
     {:noreply, socket}
   end
 
+  def handle_event("show_item", _params, %{assigns: %{item: _item}} = socket) do
+    {:noreply, socket}
+  end
+
   def handle_event("unlike", _params, %{assigns: %{item: item, user_id: user_id}} = socket)
       when is_binary(user_id) do
     with true <- Items.can_unlike?(item.id, user_id),
